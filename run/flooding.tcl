@@ -135,10 +135,10 @@ for {set i 0} {$i < $num_nodes} {incr i} {
 
 # now set up some events
 $ns at 0.2 "$a(0) send_message 200 7 {first message}  $MESSAGE_PORT"
-#$ns at 0.4 "$a(1) send_message 600 2 {some big message} $MESSAGE_PORT"
+#$ns at 0.2 "$a(1) send_message 600 2 {some big message} $MESSAGE_PORT"
 #$ns at 0.5 "$a(2) send_message 200 3 {another one} $MESSAGE_PORT"
 
-$ns at 1.0 "finish"
+$ns at 3.0 "finish"
 
 proc finish {} {
         global ns f nf val

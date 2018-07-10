@@ -560,6 +560,7 @@ void
 AODV::recv(Packet *p, Handler*) {
 struct hdr_cmn *ch = HDR_CMN(p);
 struct hdr_ip *ih = HDR_IP(p);
+int uid = ch-> uid();
  assert(initialized());
  //assert(p->incoming == 0);
  // XXXXX NOTE: use of incoming flag has been depracated; In order to track direction of pkt flow, direction_ in hdr_cmn is used instead. see packet.h for details.
@@ -582,16 +583,20 @@ printf("node id: %d\n", index);
    return;
  }
 
+  //const int MAX_NODE = 10;
+  const int MAX_PACK = 10;
+  static int track[MAX_NODE][MAX_PACK] = {};
 
-static int node[5] = {};
-printf("Visited: %d\n", node[index]);
-if(node[index] == 1 ){
-  printf("droping because already has this...\n");
-  drop(p, DROP_RTR_ROUTE_LOOP);
-   return;
-}else{
-  node[index]++;
-}
+  printf("Visited: %d\n", track[index][uid]);
+
+  if(track[index][uid] == 1 ){
+    printf("droping because already has this...\n");
+    drop(p, DROP_RTR_ROUTE_LOOP);
+    return;
+  }else{
+    track[index][uid]++;
+  }
+
 
 //ch->v_node_.push_back(index);
   /*
@@ -659,7 +664,7 @@ else {
  else{
    printf("Found broadcast packet, forwarding\n");
    ch->direction() = hdr_cmn::DOWN;
-   //ih->saddr() = index;
+   ih->saddr() = index;
    //ch->visited[index] = 1;
    forward((aodv_rt_entry*) 0, p, NO_DELAY);
  }
