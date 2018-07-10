@@ -46,7 +46,6 @@
 #include "lib/bsd-list.h"
 #include "packet-stamp.h"
 #include "ns-process.h"
-#include <vector>
 
 // Used by wireless routing code to attach routing agent
 #define RT_PORT		255	/* port that all route msgs are sent to */
@@ -566,7 +565,6 @@ enum ModulationScheme {BPSK = 0, QPSK = 1, QAM16 = 2, QAM64 = 3};
 struct hdr_cmn {
 
 	//for handling flooding we created a vector that will track visited nodes;
-    vector <int> v_node_;
 
 	enum dir_t { DOWN= -1, NONE= 0, UP= 1 };
 	packet_t ptype_;	// packet type (see above)
@@ -636,7 +634,6 @@ struct hdr_cmn {
 	inline int& addr_type() { return (addr_type_); }
 	inline int& num_forwards() { return (num_forwards_); }
 	inline int& opt_num_forwards() { return (opt_num_forwards_); }
-	inline vector<int>& v_node(){return (v_node_);}
         //monarch_end
 
 	ModulationScheme mod_scheme_;
