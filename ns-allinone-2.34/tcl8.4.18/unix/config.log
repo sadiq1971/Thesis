@@ -31,9 +31,6 @@ PATH: /home/sadiq/Thesis/ns-allinone-2.34/bin
 PATH: /home/sadiq/.cargo/bin
 PATH: /home/sadiq/bin
 PATH: /home/sadiq/.local/bin
-PATH: /home/sadiq/.cargo/bin
-PATH: /home/sadiq/bin
-PATH: /home/sadiq/.local/bin
 PATH: /usr/local/sbin
 PATH: /usr/local/bin
 PATH: /usr/sbin
@@ -296,7 +293,7 @@ configure:4241: gcc -o conftest  -pipe   conftest.c  >&5
 conftest.c:45:6: warning: conflicting types for built-in function 'sin' [-Wbuiltin-declaration-mismatch]
  char sin ();
       ^~~
-/tmp/ccE4Jzc4.o: In function `main':
+/tmp/ccK3tUda.o: In function `main':
 conftest.c:(.text+0xa): undefined reference to `sin'
 collect2: error: ld returned 1 exit status
 configure:4241: $? = 1
@@ -905,7 +902,7 @@ configure:7212: $? = 0
 configure:7212: result: yes
 configure:7225: checking for tmpnam
 configure:7225: gcc -o conftest  -pipe   -Wl,--export-dynamic conftest.c  >&5
-/tmp/ccRkXj4Q.o: In function `main':
+/tmp/ccm8vZkZ.o: In function `main':
 conftest.c:(.text+0xa): warning: the use of `tmpnam' is dangerous, better use `mkstemp'
 configure:7225: $? = 0
 configure:7225: result: yes
@@ -919,7 +916,7 @@ configure:7252: $? = 0
 configure:7252: result: yes
 configure:7260: checking for getwd
 configure:7260: gcc -o conftest  -pipe   -Wl,--export-dynamic conftest.c  >&5
-/tmp/ccCzOr63.o: In function `main':
+/tmp/ccPR1Kj9.o: In function `main':
 conftest.c:(.text+0xa): warning: the `getwd' function is dangerous and should not be used.
 configure:7260: $? = 0
 configure:7260: result: yes
@@ -1807,7 +1804,7 @@ configure:9022: $? = 0
 configure:9022: result: yes
 configure:9132: checking for BSDgettimeofday
 configure:9132: gcc -o conftest  -pipe   -Wl,--export-dynamic conftest.c  >&5
-/tmp/ccPZChTz.o: In function `main':
+/tmp/ccYRVKmL.o: In function `main':
 conftest.c:(.text+0xa): undefined reference to `BSDgettimeofday'
 collect2: error: ld returned 1 exit status
 configure:9132: $? = 1

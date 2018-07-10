@@ -35,8 +35,7 @@ The AODV code developed by the CMU/MONARCH group was optimized and tuned by Sami
 #include <random.h>
 #include <cmu-trace.h>
 //#include <energy-model.h>
-#include <algorithm>
-#include <vector>
+
 
 #define max(a,b)        ( (a) > (b) ? (a) : (b) )
 #define CURRENT_TIME    Scheduler::instance().clock()
