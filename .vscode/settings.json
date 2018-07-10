@@ -1,0 +1,9 @@
+{
+    "git.ignoreLimitWarning": true,
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "deque": "cpp",
+        "vector": "cpp",
+        "unordered_map": "cpp"
+    }
+}
