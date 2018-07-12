@@ -89,6 +89,7 @@
 #define DROP_IFQ_FILTER                 "FIL"
 
 #define DROP_OUTSIDE_SUBNET             "OUT"   // dropped by base stations if received rtg updates from nodes outside its domain.
+#define DROP_NOT_VALID_NODE             "NVN"
 
 #define MAX_ID_LEN	3
 #define MAX_NODE	4096
