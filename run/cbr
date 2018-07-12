@@ -1,5 +1,5 @@
 #
-# nodes: 5, max conn: 10, send rate: 4.0, seed: 1
+# nodes: 11, max conn: 20, send rate: 4.0, seed: 1
 #
 #
 # 1 connecting to 2 at time 2.5568388786897245

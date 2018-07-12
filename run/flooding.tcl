@@ -8,7 +8,7 @@ set BROADCAST_ADDR -1
 # variables which control the number of nodes and how they're grouped
 # (see topology creation code below)
 
-set num_nodes 5
+set num_nodes 11
 
 
 set val(chan)           Channel/WirelessChannel    ;#Channel Type
