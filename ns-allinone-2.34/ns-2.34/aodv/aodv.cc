@@ -586,9 +586,13 @@ printf("node id: %d\n", index);
 
   //const int MAX_NODE = 10;
   const int MAX_PACK = 10;
-  const int TOTAL_NODE = 11;
+  const int TOTAL_NODE = 6;
   static int track[MAX_NODE][MAX_PACK] = {};
-  static int valid_source[TOTAL_NODE] = {-1, 0, 1, 2, 0, 4, 5, 5, 4, 1, 2};
+  static int valid_source[TOTAL_NODE] = {-1, -1,  0, 2, -1, -1};
+  //we have to read from a file
+  // like this
+  // node id  ..  list of nodes*
+  //list of node = if current node receives from this nodes, it should be forwarded....
 
   printf("Visited: %d\n", track[index][uid]);
 
