@@ -1,42 +1,24 @@
 #
-# nodes: 5, pause: 30.00, max speed: 0.01, max x: 1000.00, max y: 1000.00
+# nodes: 11, pause: 30.00, max speed: 0.01, max x: 1000.00, max y: 1000.00
 #
-$node_(0) set X_ 0.526532591674
-$node_(0) set Y_ 0.081549529210
+$node_(0) set X_ 0
+$node_(0) set Y_ 250
 $node_(0) set Z_ 0.000000000000
-$node_(1) set X_ 20.556789369279
-$node_(1) set Y_ 0.659187156966
+$node_(1) set X_ 260
+$node_(1) set Y_ 220
 $node_(1) set Z_ 0.000000000000
-$node_(2) set X_ 250.320881091697
-$node_(2) set Y_ 0.703592865343
+$node_(2) set X_ 320
+$node_(2) set Y_ 300
 $node_(2) set Z_ 0.000000000000
-$node_(3) set X_ 400.327933081475
-$node_(3) set Y_ 0.606076534387
+$node_(3) set X_ 540
+$node_(3) set Y_ 200
 $node_(3) set Z_ 0.000000000000
-$node_(4) set X_ 600.309519762262
-$node_(4) set Y_ 0.863024436754
+$node_(4) set X_ 300
+$node_(4) set Y_ 120
 $node_(4) set Z_ 0.000000000000
-$god_ set-dist 0 1 16777215
-$god_ set-dist 0 2 16777215
-$god_ set-dist 0 3 16777215
-$god_ set-dist 0 4 16777215
-$god_ set-dist 1 2 16777215
-$god_ set-dist 1 3 16777215
-$god_ set-dist 1 4 16777215
-$god_ set-dist 2 3 16777215
-$god_ set-dist 2 4 16777215
-$god_ set-dist 3 4 16777215
-#
-# Destination Unreachables: 10
-#
-# Route Changes: 0
-#
-# Link Changes: 0
-#
-# Node | Route Changes | Link Changes
-#    0 |             0 |            0
-#    1 |             0 |            0
-#    2 |             0 |            0
-#    3 |             0 |            0
-#    4 |             0 |            0
-#
+$node_(5) set X_ 100
+$node_(5) set Y_ 50
+$node_(5) set Z_ 0.000000000000
+$node_(6) set X_ 130
+$node_(6) set Y_ 440
+$node_(6) set Z_ 0.000000000000

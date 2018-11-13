@@ -34,6 +34,7 @@ The AODV code developed by the CMU/MONARCH group was optimized and tuned by Sami
 #include <aodv/aodv_packet.h>
 #include <random.h>
 #include <cmu-trace.h>
+#include<fstream>
 //#include <energy-model.h>
 
 
@@ -48,11 +49,15 @@ static int extra_route_reply = 0;
 static int limit_route_request = 0;
 static int route_request = 0;
 #endif
-
+const int MAX_PACK = 1;
+const int TOTAL_NODE = 7;
+static bool forwardingList[TOTAL_NODE][TOTAL_NODE];
+using namespace std;
 
 /*
   TCL Hooks
 */
+
 
 
 int hdr_aodv::offset_;
@@ -560,18 +565,20 @@ void
 AODV::recv(Packet *p, Handler*) {
 struct hdr_cmn *ch = HDR_CMN(p);
 struct hdr_ip *ih = HDR_IP(p);
+int uid = ch-> uid();
  assert(initialized());
  //assert(p->incoming == 0);
  // XXXXX NOTE: use of incoming flag has been depracated; In order to track direction of pkt flow, direction_ in hdr_cmn is used instead. see packet.h for details.
 printf("receiving in AoDV\n");
+printf("previous node:%d\n", ch->p_node());
 //printf("ptype : %d\n",ch->ptype());
-printf("uid : %d\n",ch->uid());
+//printf("uid : %d\n",ch->uid());
 //printf("phop : %d\n",ch->prev_hop());
 //printf("nhop : %d\n",ch->next_hop());
 //printf("addrstype : %d\n",ch->addr_type());
 printf("saddrs : %d\n",ih->saddr());
-printf("daddrs : %d\n",ih->daddr());
-printf("numforward: %d\n", ch->num_forwards());
+//printf("daddrs : %d\n",ih->daddr());
+//printf("numforward: %d\n", ch->num_forwards());
 printf("node id: %d\n", index);
 
 
@@ -582,16 +589,42 @@ printf("node id: %d\n", index);
    return;
  }
 
+  static int track[MAX_NODE][MAX_PACK] = {};
+  //static int valid_source[TOTAL_NODE] = {-1, -1,  0, 2, -1, -1};
+  //we have to read from a file
+  // like this
+  // node id  ..  list of nodes*
+  //list of node = if current node receives from this nodes, it should be forwarded....
 
-static int node[5] = {};
-printf("Visited: %d\n", node[index]);
-if(node[index] == 1 ){
-  printf("droping because already has this...\n");
-  drop(p, DROP_RTR_ROUTE_LOOP);
-   return;
-}else{
-  node[index]++;
-}
+  printf("Visited: %d\n", track[index][uid]);
+
+
+  
+  // if (valid_source[index] != ch->p_node()) {
+  //   if(ih->saddr() != index){
+  //     printf("droping because invalid node\n");
+  //     drop(p, DROP_NOT_VALID_NODE);
+  //     return;
+  //   }
+  // }
+
+  if (!forwardingList[ch->p_node()][index]){
+    if(ih->saddr() != index){
+      printf("droping because invalid node\n");
+      drop(p, DROP_NOT_VALID_NODE);
+      return;
+    }
+  }
+  
+
+  if(track[index][uid] == 1 ){
+    printf("droping because already has this...\n");
+    drop(p, DROP_RTR_ROUTE_LOOP);
+    return;
+  }else{
+    track[index][uid]++;
+  }
+
 
 //ch->v_node_.push_back(index);
   /*
@@ -613,6 +646,29 @@ if(node[index] == 1 ){
 
 if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
   printf("initializing new packet\n");
+  // Initialize the forwarding List
+  // Read from the file of forwarding list..
+  ifstream outputFile;
+  outputFile.open("/home/sadiq/Thesis/run/output.txt");
+  while (!outputFile.eof()) {
+    for(int i = 0; i < TOTAL_NODE; i++) { 
+      for(int j = 0; j < TOTAL_NODE; j++) {
+        bool value;
+        outputFile >> value;
+        forwardingList[i][j] = value;
+      }
+    }
+  }
+  outputFile.close();
+
+  for(int i = 0; i < TOTAL_NODE; i++) { 
+    for(int j = 0; j < TOTAL_NODE; j++) {
+      printf(" %d",forwardingList[i][j]);
+    }
+    printf("\n");
+  }
+
+
  /*
   * Add the IP Header.  
   * TCP adds the IP header too, so to avoid setting it twice, we check if
@@ -659,8 +715,9 @@ else {
  else{
    printf("Found broadcast packet, forwarding\n");
    ch->direction() = hdr_cmn::DOWN;
+   ch->p_node_ = index;
    //ih->saddr() = index;
-   //ch->visited[index] = 1;
+
    forward((aodv_rt_entry*) 0, p, NO_DELAY);
  }
 }

@@ -8,7 +8,7 @@ set BROADCAST_ADDR -1
 # variables which control the number of nodes and how they're grouped
 # (see topology creation code below)
 
-set num_nodes 5
+set num_nodes 7
 
 
 set val(chan)           Channel/WirelessChannel    ;#Channel Type
@@ -40,15 +40,16 @@ set val(x)              1000
 set val(y)              1000
 
 set val(sc)             "scenario"
+set val(cp)             "cbr" 
 
 set ns [new Simulator]
 
 set f [open wireless-flooding.tr w]
 $ns trace-all $f
-set nf [open wireless-flooding-$val(rp).nam w]
+set nf [open wireless-flooding.nam w]
 $ns namtrace-all-wireless $nf $val(x) $val(y)
 
-#$ns use-newtrace
+$ns use-newtrace
 
 # set up topography object
 set topo       [new Topography]
@@ -76,7 +77,7 @@ $ns node-config -adhocRouting $val(rp) \
 		 		 -topoInstance $topo \
 		 		 -agentTrace ON \
                  -routerTrace ON \
-                 -macTrace ON
+                 -macTrace OFF
 
 
 # subclass Agent/MessagePassing to make it do flooding
@@ -123,22 +124,23 @@ for {set i 0} {$i < $num_nodes} {incr i} {
 
 puts "Loading scenario file..."
 source $val(sc)
+source $val(cp)
 
 
 # attach a new Agent/MessagePassing/Flooding to each node on port $MESSAGE_PORT
-for {set i 0} {$i < $num_nodes} {incr i} {
-    set a($i) [new Agent/MessagePassing/Flooding]
-    $node_($i) attach  $a($i) $MESSAGE_PORT
-    $a($i) set messages_seen {}
-}
+# for {set i 0} {$i < $num_nodes} {incr i} {
+#     set a($i) [new Agent/MessagePassing/Flooding]
+#     $node_($i) attach  $a($i) $MESSAGE_PORT
+#     $a($i) set messages_seen {}
+# }
 
 
 # now set up some events
-$ns at 0.2 "$a(0) send_message 200 7 {first message}  $MESSAGE_PORT"
-#$ns at 0.4 "$a(1) send_message 600 2 {some big message} $MESSAGE_PORT"
-#$ns at 0.5 "$a(2) send_message 200 3 {another one} $MESSAGE_PORT"
+$ns at 0.2 "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
+# $ns at 0.4 "$a(1) send_message 600 2 {some big message} $MESSAGE_PORT"
+# $ns at 0.6 "$a(2) send_message 200 3 {another one} $MESSAGE_PORT"
 
-$ns at 1.0 "finish"
+$ns at 3.0 "finish"
 
 proc finish {} {
         global ns f nf val
@@ -146,8 +148,8 @@ proc finish {} {
         close $f
         close $nf
 
-#        puts "running nam..."
-        #exec nam wireless-flooding-$val(rp).nam &
+        #puts "running nam..."
+        #exec nam wireless-flooding.nam &
         exit 0
 }
 
