@@ -4,69 +4,38 @@ n -t * -s 2  -x 0 -y 0 -Z 0 -z 20  -v circle -c black
 n -t * -s 3  -x 0 -y 0 -Z 0 -z 20  -v circle -c black
 n -t * -s 4  -x 0 -y 0 -Z 0 -z 20  -v circle -c black
 n -t * -s 5  -x 0 -y 0 -Z 0 -z 20  -v circle -c black
+n -t * -s 6  -x 0 -y 0 -Z 0 -z 20  -v circle -c black
 V -t * -v 1.0a5 -a 0
 W -t * -x 1000 -y 1000
 A -t * -n 1 -p 0 -o 0xffffffff -c 31 -a 1
 A -t * -h 1 -m 2147483647 -s 0
-v -t 0.2 -e sim_annotation 0.2 1 0 sending message 1
-+ -t 0.200000000 -s 0 -d 0 -p message -e 200 -c 2 -a 0 -i 0 -k AGT 
-- -t 0.200000000 -s 0 -d 0 -p message -e 200 -c 2 -a 0 -i 0 -k AGT
-h -t 0.200000000 -s 0 -d 0 -p message -e 200 -c 2 -a 0 -i 0 -k AGT
-r -t 0.200000000 -s 0 -d 0 -p message -e 200 -c 2 -a 0 -i 0 -k RTR
-+ -t 0.200000000 -s 0 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR 
-- -t 0.200000000 -s 0 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-h -t 0.200000000 -s 0 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-r -t 0.202784374 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-d -t 0.202784374 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-r -t 0.202784499 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-+ -t 0.202784499 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR 
-- -t 0.202784499 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-h -t 0.202784499 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-r -t 0.205668970 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-d -t 0.205668970 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-r -t 0.205668999 -s 0 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-d -t 0.205668999 -s 0 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-r -t 0.205669166 -s 3 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-+ -t 0.205669166 -s 3 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR 
-- -t 0.205669166 -s 3 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-h -t 0.205669166 -s 3 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-r -t 0.208313637 -s 4 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-d -t 0.208313637 -s 4 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-r -t 0.208313833 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-d -t 0.208313833 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-r -t 0.208313833 -s 5 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-d -t 0.208313833 -s 5 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
-v -t 0.4 -e sim_annotation 0.4 2 1 sending message 2
-+ -t 0.400000000 -s 1 -d 0 -p message -e 600 -c 2 -a 0 -i 1 -k AGT 
-- -t 0.400000000 -s 1 -d 0 -p message -e 600 -c 2 -a 0 -i 1 -k AGT
-h -t 0.400000000 -s 1 -d 0 -p message -e 600 -c 2 -a 0 -i 1 -k AGT
-r -t 0.400000000 -s 1 -d 0 -p message -e 600 -c 2 -a 0 -i 1 -k RTR
-+ -t 0.400000000 -s 1 -d -1 -p message -e 620 -c 2 -a 0 -i 1 -k RTR 
-- -t 0.400000000 -s 1 -d -1 -p message -e 620 -c 2 -a 0 -i 1 -k RTR
-h -t 0.400000000 -s 1 -d -1 -p message -e 620 -c 2 -a 0 -i 1 -k RTR
-r -t 0.405684374 -s 0 -d 1 -p message -e 620 -c 2 -a 0 -i 1 -k RTR
-d -t 0.405684374 -s 0 -d 1 -p message -e 620 -c 2 -a 0 -i 1 -k RTR
-r -t 0.405684471 -s 2 -d 1 -p message -e 620 -c 2 -a 0 -i 1 -k RTR
-d -t 0.405684471 -s 2 -d 1 -p message -e 620 -c 2 -a 0 -i 1 -k RTR
-v -t 0.6 -e sim_annotation 0.6 3 2 sending message 3
-+ -t 0.600000000 -s 2 -d 0 -p message -e 200 -c 2 -a 0 -i 2 -k AGT 
-- -t 0.600000000 -s 2 -d 0 -p message -e 200 -c 2 -a 0 -i 2 -k AGT
-h -t 0.600000000 -s 2 -d 0 -p message -e 200 -c 2 -a 0 -i 2 -k AGT
-r -t 0.600000000 -s 2 -d 0 -p message -e 200 -c 2 -a 0 -i 2 -k RTR
-+ -t 0.600000000 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR 
-- -t 0.600000000 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-h -t 0.600000000 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-r -t 0.602564471 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-d -t 0.602564471 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-r -t 0.602564499 -s 0 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-d -t 0.602564499 -s 0 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-r -t 0.602564667 -s 3 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-+ -t 0.602564667 -s 3 -d -1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR 
-- -t 0.602564667 -s 3 -d -1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-h -t 0.602564667 -s 3 -d -1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-r -t 0.605149137 -s 4 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-d -t 0.605149137 -s 4 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-r -t 0.605149333 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-d -t 0.605149333 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-r -t 0.605149334 -s 5 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
-d -t 0.605149334 -s 5 -d 1 -p message -e 220 -c 2 -a 0 -i 2 -k RTR
+v -t 0.2 -e sim_annotation 0.2 1 2 sending message 3
++ -t 0.200000000 -s 2 -d 0 -p message -e 200 -c 2 -a 0 -i 0 -k AGT 
+- -t 0.200000000 -s 2 -d 0 -p message -e 200 -c 2 -a 0 -i 0 -k AGT
+h -t 0.200000000 -s 2 -d 0 -p message -e 200 -c 2 -a 0 -i 0 -k AGT
+r -t 0.200000000 -s 2 -d 0 -p message -e 200 -c 2 -a 0 -i 0 -k RTR
++ -t 0.200000000 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR 
+- -t 0.200000000 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+h -t 0.200000000 -s 2 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.202784333 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+d -t 0.202784333 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.202784604 -s 4 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
++ -t 0.202784604 -s 4 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR 
+- -t 0.202784604 -s 4 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+h -t 0.202784604 -s 4 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.202784787 -s 6 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
++ -t 0.202784787 -s 6 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR 
+- -t 0.202784787 -s 6 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+h -t 0.202784787 -s 6 -d -1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.202784806 -s 3 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+d -t 0.202784806 -s 3 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.205409554 -s 0 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+d -t 0.205409554 -s 0 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.205409573 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+d -t 0.205409573 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.208308354 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+d -t 0.208308354 -s 1 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.208308598 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+d -t 0.208308598 -s 2 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+r -t 0.208308701 -s 5 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR
+d -t 0.208308701 -s 5 -d 1 -p message -e 220 -c 2 -a 0 -i 0 -k RTR

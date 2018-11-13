@@ -4,7 +4,8 @@
     "files.associations": {
         "deque": "cpp",
         "vector": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "ostream": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }
