@@ -15,6 +15,7 @@ func main() {
 	var isForwardNode [MAX_NODE][MAX_PACK]bool
 	var dropedPacket [MAX_PACK]int
 	var forwardedPacket [MAX_PACK]int
+	var validPackate = 0
 
 	//initialize with -1
 	for i := range timeTracket {
@@ -52,6 +53,15 @@ func main() {
 				scanner.Scan()
 				temp := scanner.Text()
 				if temp == "-Iv" {
+					node, _ := strconv.ParseInt(line["-Ni"], 10, 64)
+					packet, _ := strconv.ParseInt(line["-Ii"], 10, 64)
+					layer := line["-Nl"]
+					if layer == "RTR" {
+						isForwardNode[node][packet] = true
+						forwardedPacket[packet]++
+						totalForwardedPacket++
+					}
+
 					break
 				}
 				scanner.Scan()
@@ -73,7 +83,6 @@ func main() {
 					//fmt.Println("Network Layer == ", line["-Nl"])
 					node, _ := strconv.ParseInt(line["-Ni"], 10, 64)
 					packet, _ := strconv.ParseInt(line["-Ii"], 10, 64)
-
 					isForwardNode[node][packet] = true
 					forwardedPacket[packet]++
 
@@ -134,10 +143,6 @@ func main() {
 		}
 	}
 
-	//fmt.Println(l2)
-	fmt.Println("Total droped packet", totalDropPacket)
-	fmt.Println("Total forwarded packet", totalForwardedPacket+3)
-
 	for i := 0; i < MAX_PACK; i++ {
 		min := 100000.0
 		max := -100000.0
@@ -157,13 +162,15 @@ func main() {
 				maxNode = j
 			}
 		}
-		fmt.Println()
+
 		if minNode != -1 && maxNode != -1 {
+			fmt.Println()
+			validPackate++
 			fmt.Println("For packet id : ", i)
 			fmt.Println("Delay = ", max-min)
 			fmt.Println("Starting node: ", minNode, " End node: ", maxNode)
 			fmt.Println("Total Dropped: ", dropedPacket[i])
-			fmt.Println("Total Forwarded: ", forwardedPacket[i]+1)
+			fmt.Println("Total Forwarded: ", forwardedPacket[i])
 			fmt.Print("Received by: ")
 			for k := 0; k < MAX_NODE; k++ {
 				if timeTracket[k][i] != -1 {
@@ -175,5 +182,13 @@ func main() {
 		}
 
 	}
+
+	fmt.Println()
+	fmt.Println("Total droped packet", totalDropPacket)
+	fmt.Println("Total forwarded packet", totalForwardedPacket)
+	var averageForwarding = float64(totalForwardedPacket) / float64(validPackate)
+	var averageDropped = float64(totalDropPacket) / float64(validPackate)
+	fmt.Println("Average Forwarding:", averageForwarding)
+	fmt.Println("Average DroppedPacket Node: ", averageDropped)
 
 }

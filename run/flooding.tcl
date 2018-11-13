@@ -8,7 +8,7 @@ set BROADCAST_ADDR -1
 # variables which control the number of nodes and how they're grouped
 # (see topology creation code below)
 
-set num_nodes 6
+set num_nodes 7
 
 
 set val(chan)           Channel/WirelessChannel    ;#Channel Type
@@ -136,9 +136,9 @@ source $val(cp)
 
 
 # now set up some events
-$ns at 0.2 "$a(0) send_message 200 1 {first message}  $MESSAGE_PORT"
-$ns at 0.4 "$a(1) send_message 600 2 {some big message} $MESSAGE_PORT"
-$ns at 0.6 "$a(2) send_message 200 3 {another one} $MESSAGE_PORT"
+$ns at 0.2 "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
+# $ns at 0.4 "$a(1) send_message 600 2 {some big message} $MESSAGE_PORT"
+# $ns at 0.6 "$a(2) send_message 200 3 {another one} $MESSAGE_PORT"
 
 $ns at 3.0 "finish"
 
