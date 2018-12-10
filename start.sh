@@ -45,6 +45,19 @@ do
     ./a.out $scendir/$scenario_file_name$i.out $inforalgo/$scenario_file_name$i.out $num_nodes
 
 done
+
+
+CACDS=/home/sadiq/Thesis/NAWRIN_thesis_codes/outCACDS
+DCADS=/home/sadiq/Thesis/NAWRIN_thesis_codes/outDCADS
+DP=/home/sadiq/Thesis/NAWRIN_thesis_codes/outDP
+MCDS=/home/sadiq/Thesis/NAWRIN_thesis_codes/outMCDS
+
+rm -f CACDS/*
+rm -f DCADS/*
+rm -f DP/*
+rm -f MCDS/*
+
+
 # all files are  ready
 # run the algorithms now
 echo "Running the algorithms.."
@@ -66,8 +79,53 @@ g++ ./DCACDS.cpp
 # now run the ns simulator.... 
 # files for ns2...
 scenario=/home/sadiq/Thesis/run/scenario
+output=/home/sadiq/Thesis/run/output.txt
+run=/home/sadiq/Thesis/run
+analyser=/home/sadiq/Thesis/run/Trace\ Analysis
+result=/home/sadiq/Thesis/result
+rm -f $result/*
 
+# CACDS
 for(( i=1;i<=$sn;i++))
 do
-    
+    cd $run
+    cp $scendir/$scenario_file_name$i.out scenario
+    cp $CACDS/$scenario_file_name$i.out output
+    ns flooding.tcl
+    cd $analyser
+    go run analyser.go >> $result/cacds
+
+done
+# DCADS
+for(( i=1;i<=$sn;i++))
+do
+    cd $run
+    cp $scendir/$scenario_file_name$i.out scenario
+    cp $DCADS/$scenario_file_name$i.out output
+    ns flooding.tcl
+    cd $analyser
+    go run analyser.go >> $result/dcads
+
+done
+# DP
+for(( i=1;i<=$sn;i++))
+do
+    cd $run
+    cp $scendir/$scenario_file_name$i.out scenario
+    cp $DP/$scenario_file_name$i.out output
+    ns flooding.tcl
+    cd $analyser
+    go run analyser.go >> $result/dp
+
+done
+# MCDS
+for(( i=1;i<=$sn;i++))
+do
+    cd $run
+    cp $scendir/$scenario_file_name$i.out scenario
+    cp $MCDS/$scenario_file_name$i.out output
+    ns flooding.tcl
+    cd $analyser
+    go run analyser.go >> $result/mcds
+
 done

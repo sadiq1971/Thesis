@@ -30,7 +30,7 @@ func main() {
 		}
 	}
 
-	fmt.Println("Welcome to the analyser")
+	// fmt.Println("Welcome to the analyser")
 
 	file, err := os.Open("../wireless-flooding.tr")
 	if err != nil {
@@ -174,20 +174,20 @@ func main() {
 		}
 
 		if minNode != -1 && maxNode != -1 {
-			fmt.Println()
+			// fmt.Println()
 			validPackate++
-			fmt.Println("For packet id : ", i)
-			fmt.Println("Delay = ", max-min)
+			// fmt.Println("For packet id : ", i)
+			// fmt.Println("Delay = ", max-min)
 			totalDelay += max - min
-			fmt.Println("Starting node: ", minNode, " End node: ", maxNode)
-			fmt.Println("Total Dropped: ", dropedPacket[i])
-			fmt.Println("Total Forwarded: ", forwardedPacket[i])
-			fmt.Print("Received by: ")
+			// fmt.Println("Starting node: ", minNode, " End node: ", maxNode)
+			// fmt.Println("Total Dropped: ", dropedPacket[i])
+			// fmt.Println("Total Forwarded: ", forwardedPacket[i])
+			// fmt.Print("Received by: ")
 
 			totalReceived := 0
 			for k := 0; k < MAX_NODE; k++ {
 				if timeTracket[k][i] != -1 {
-					fmt.Print(k, " ")
+					// fmt.Print(k, " ")
 					totalReceived++
 					reachability++
 				}
@@ -196,26 +196,26 @@ func main() {
 				averageDelay += max - min
 				successfullForwarding++
 			}
-			fmt.Println()
+			// fmt.Println()
 
 		}
 
 	}
 
-	fmt.Println()
-	fmt.Println("Total droped packet", totalDropPacket)
-	fmt.Println("Total forwarded packet", totalForwardedPacket)
+	// fmt.Println("Total droped packet", totalDropPacket)
+	// fmt.Println("Total forwarded packet", totalForwardedPacket)
 	var averageForwarding = float64(totalForwardedPacket) / float64(validPackate)
-	var averageDropped = float64(totalDropPacket) / float64(validPackate)
+	// var averageDropped = float64(totalDropPacket) / float64(validPackate)
 	fmt.Println("Average Forwarding:", averageForwarding)
-	fmt.Println("Average DroppedPacket: ", averageDropped)
+	// fmt.Println("Average DroppedPacket: ", averageDropped)
 	// fmt.Println("Average Delay (For succ pkt only): ", float64(averageDelay)/float64(successfullForwarding))
 	fmt.Println("Average Delay : ",
 		float64(totalDelay)/float64(validPackate))
-	fmt.Println("Packet received by all nodes: ", successfullForwarding)
+	// fmt.Println("Packet received by all nodes: ", successfullForwarding)
 	fmt.Println("Average Collision: ",
 		float64(averageCollision)/float64(validPackate))
 	fmt.Println("Reachability in percentage: ",
 		float64(reachability)/(float64(validPackate)*float64(MAX_NODE)))
+	fmt.Println()
 
 }
