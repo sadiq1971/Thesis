@@ -238,7 +238,7 @@ int main()
                     max_car_node=i;
                 }
             }
-        printf("max-car:%d", max_car_node);    
+        // printf("max-car:%d", max_car_node);    
         ColorB[ColorB_count++]=max_car_node;
 
 
@@ -370,7 +370,7 @@ else{
       camcds[i]=ColorB[i];
 
   }
-  Print_array(ColorB,ColorB_count);
+//   Print_array(ColorB,ColorB_count);
 
 
  //fprintf(fp2," ");

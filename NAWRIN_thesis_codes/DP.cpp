@@ -403,18 +403,18 @@ void selecting_forward_list(node *a)
             //free(U2_Set);
         }
     }
-    cout<<"Forward_list of : "<<a->id<<": ";
+    // cout<<"Forward_list of : "<<a->id<<": ";
     
     for(int i=0;i<a->size_of_Forward_list;i++)
     {
-        cout<<a->Forward_list[i]<<" ";
+        // cout<<a->Forward_list[i]<<" ";
         int index=a->Forward_list[i];
         ZeroOne[a->id][index]=1;
         //fprintf(fp2,"%d ",a->Forward_list[i]);
 
     }
     
-    cout<<endl;
+    // cout<<endl;
 
 }
 
@@ -489,7 +489,7 @@ int main()
     while(fscanf(fp_in,"%s",p)!=EOF)
     {
 
-        cout<<"Runnning Sceanrio::"<<x<<endl;
+        // cout<<"Runnning Sceanrio::"<<x<<endl;
         x++;    
     total_black=0;
     node node_u, node_v;
@@ -527,7 +527,7 @@ int main()
             ZeroOne[i][j]=0;
         }            
     }
-    cout<<"Number of Nodes::"<<num_nodes<<'\t';
+    // cout<<"Number of Nodes::"<<num_nodes<<'\t';
     
 
             node_v.id=0;
@@ -595,7 +595,7 @@ int main()
 
             }
 
-            cout<<"total forwardings:"<<total_black<<endl;
+            // cout<<"total forwardings:"<<total_black<<endl;
             //fprintf(fp2, "%s %d\t", "Number of Nodes::",num_nodes);
             //fprintf(fp2,"total forwarding:: %d\n",total_black);
             for(int i=0;i<num_nodes;i++)
@@ -614,6 +614,6 @@ int main()
     }
 
     fclose(fp_in);
-    printf("Done running all test cases. Results are in folder outDP\n");
+    // printf("Done running all test cases. Results are in folder outDP\n");
     return 0;
 }

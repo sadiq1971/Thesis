@@ -3,12 +3,14 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[] )
 {
     ifstream input;
-    input.open("/home/sadiq/Thesis/run/scenGen/scenario");
+    // cout<<argv[1];
+    input.open(argv[1]);
     ofstream output;
-    output.open("scen_100_250_625.out");
+    output.open(argv[2]);
+    output<<(argv[3])<<"\n";
     
     while(!input.eof()){
         string value,s;

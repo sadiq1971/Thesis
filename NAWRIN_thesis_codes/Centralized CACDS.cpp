@@ -359,14 +359,14 @@ int main()
         }
 
     }
-  cout<<"forwarding nodes are"<<endl;
+//   cout<<"forwarding nodes are"<<endl;
   for(int i=0;i<ColorB_count;i++)
   {
       camcds[i]=ColorB[i];
 
   }
   Print_array(ColorB,ColorB_count);
-  cout<<"number of forward "<<ColorB_count<<endl;
+//   cout<<"number of forward "<<ColorB_count<<endl;
 
 
       fclose(fp);
@@ -376,7 +376,7 @@ int main()
 
     fclose(fp_in);
 
-    cout<<"Done Running all test cases. Results are in file b.txt"<<endl;
+    // cout<<"Done Running all test cases. Results are in file b.txt"<<endl;
 
        return 0;
 }

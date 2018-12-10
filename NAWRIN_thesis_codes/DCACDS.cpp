@@ -488,23 +488,23 @@ else{
 
 }
     }
-    cout<<"Forward_list of: "<<a->id<<": ";
+    // cout<<"Forward_list of: "<<a->id<<": ";
     
 
     for(int i=0;i<a->size_of_Forward_list;i++)
     {
-        cout<<a->Forward_list[i]<<" ";
+        // cout<<a->Forward_list[i]<<" ";
         int index=a->Forward_list[i];
         ZeroOne[a->id][index]=1;
     }
-    cout<<endl;
+    // cout<<endl;
 }
 
 void initialization()
 {
     int fst_node,second_node,hop;
     fscanf(fp,"%d", &num_nodes);
-    cout<<"number of nodes::"<<num_nodes<<"\t";
+    // cout<<"number of nodes::"<<num_nodes<<"\t";
 
 
     for(int i=0;i<num_nodes;i++)
@@ -667,7 +667,7 @@ int main()
 
             }
 
-            cout<<"total forwardings:"<<total_black<<endl;
+            // cout<<"total forwardings:"<<total_black<<endl;
             
             for(int i = 0; i < num_nodes; i++){
                 for(int j = 0; j < num_nodes; j++){
@@ -682,7 +682,7 @@ int main()
             fclose(fp2);
 }
     fclose(fp_in);
-    cout<<"Done Running all test Cases. Results are in folder outDCADS"<<endl;
+    // cout<<"Done Running all test Cases. Results are in folder outDCADS"<<endl;
 
     return 0;
 }
