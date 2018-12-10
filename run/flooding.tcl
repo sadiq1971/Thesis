@@ -1,5 +1,5 @@
 
-Mac/Simple set bandwidth_ 1Mb
+Mac/802_11 set bandwidth_ 1Mb
 
 set MESSAGE_PORT 42
 set BROADCAST_ADDR -1
@@ -8,7 +8,7 @@ set BROADCAST_ADDR -1
 # variables which control the number of nodes and how they're grouped
 # (see topology creation code below)
 
-set num_nodes 7
+set num_nodes 100
 
 
 set val(chan)           Channel/WirelessChannel    ;#Channel Type
@@ -35,9 +35,14 @@ set val(ifqlen)         50                         ;# max packet in ifq
 set val(rp)              AODV
 
 
+Mac/802_11 set RTSThreshold_          2346            ;# bytes
+Mac/802_11 set ShortRetryLimit_       7               ;# retransmittions
+Mac/802_11 set LongRetryLimit_        4               ;# retransmissions
+
+
 # size of the topography
-set val(x)              1000
-set val(y)              1000
+set val(x)              650
+set val(y)              650
 
 set val(sc)             "scenario"
 set val(cp)             "cbr" 
@@ -77,7 +82,7 @@ $ns node-config -adhocRouting $val(rp) \
 		 		 -topoInstance $topo \
 		 		 -agentTrace ON \
                  -routerTrace ON \
-                 -macTrace OFF
+                 -macTrace ON
 
 
 # subclass Agent/MessagePassing to make it do flooding
@@ -119,7 +124,7 @@ for {set i 0} {$i < $num_nodes} {incr i} {
     #$n($i) set Y_ [expr 230*floor($i/$group_size) + 160*(($i%$group_size)>=($group_size/2))]
     #$n($i) set X_ [expr (90*$group_size)*($i/$group_size%2) + 200*($i%($group_size/2))]
     #$n($i) set Z_ 0.0
-    $ns initial_node_pos $node_($i) 20
+    #$ns initial_node_pos $node_($i) 20
 }
 
 puts "Loading scenario file..."
@@ -136,11 +141,19 @@ source $val(cp)
 
 
 # now set up some events
-$ns at 0.2 "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
+# $ns at 0.2 "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
 # $ns at 0.4 "$a(1) send_message 600 2 {some big message} $MESSAGE_PORT"
 # $ns at 0.6 "$a(2) send_message 200 3 {another one} $MESSAGE_PORT"
 
-$ns at 3.0 "finish"
+set b 4
+for {set i 0} {$i < 1000 } { incr i} {
+    set num [expr {$i % $num_nodes}]
+    $ns at [expr $i / $b] "$a($num) send_message 200 3 {first message}  $MESSAGE_PORT"
+    # $ns at $i "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
+}
+
+
+$ns at 500 "finish"
 
 proc finish {} {
         global ns f nf val

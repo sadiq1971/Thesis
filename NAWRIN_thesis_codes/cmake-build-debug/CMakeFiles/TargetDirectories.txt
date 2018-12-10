@@ -1,3 +1,0 @@
-/home/sadiq/Thesis/NAWRIN_thesis_codes/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/sadiq/Thesis/NAWRIN_thesis_codes/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/sadiq/Thesis/NAWRIN_thesis_codes/cmake-build-debug/CMakeFiles/NAWRIN_thesis_codes.dir

@@ -8,9 +8,13 @@ int sizec_intersection, sizec_minus;
 int sizec_union;
 FILE *fp, *fp1, *fp2;
 int contention_count=0,sum=0;
+bool ZeroOne[1000][1000]={};
+
+
 int *Union(int a[],int b[],int m,int n)
 {
- int c[1000],i,j;
+ int i,j;
+ int *c= new int[1000];
  sizec_union=0;
  int flag=0;
  for(i=0;i<m;i++)
@@ -42,7 +46,7 @@ int *Union(int a[],int b[],int m,int n)
 int *intersection(int a[],int b[], int sizea, int sizeb)
 {
     sizec_intersection=0;
-    int c[1000];
+    int *c=new int[1000];
     for(int i=0;i<sizea;i++)
     {
         for(int j=0;j<sizeb;j++)
@@ -59,7 +63,8 @@ int *intersection(int a[],int b[], int sizea, int sizeb)
 
 int *twoset_minus(int a[], int b[], int sizea, int sizeb)
 {
-    int c[1000]; sizec_minus=0;
+    int *c=new int[1000];
+    sizec_minus=0;
     for(int i=0;i<sizea;i++)
     {
         bool flag=0;
@@ -75,8 +80,8 @@ int *twoset_minus(int a[], int b[], int sizea, int sizeb)
         
         if(flag==0)
         {
-            cout<<"Starting"<<endl;
-            cout<<sizec_minus<<endl;
+            //cout<<"Starting"<<endl;
+            //cout<<sizec_minus<<endl;
             c[sizec_minus++]=a[i];
         }
     }
@@ -164,8 +169,6 @@ node::node()
 {
     size_of_first_hop=size_of_second_hop=size_of_B_set=size_of_U_set=0; color=0;
     size_of_Forward_list=0;
-
-
 }
 void first_hop_neighbor_add(node *a)
 {
@@ -237,6 +240,7 @@ void selecting_B_Set(node *a, node *b)
 
     }
     a->size_of_B_set=sizec_minus;
+    free(B1_Set);
 
 }
 void selecting_U_Set(node *a, node b)
@@ -249,6 +253,7 @@ void selecting_U_Set(node *a, node b)
         a->U_Set[i]=U1_Set[i];
     }
     a->size_of_U_set=sizec_minus;
+    free(U1_Set);
 
 }
 
@@ -262,6 +267,7 @@ void selecting_forward_list(node *a)
     node b;
     int f[1000],size_f=0;
 
+   
 
     for(int i=0;i<a->size_of_B_set;i++)
     {
@@ -307,6 +313,8 @@ void selecting_forward_list(node *a)
         a->U_Set[i]=U2_Set[i];
     }
     a->size_of_U_set=sizec_minus;
+
+    free(U2_Set);
 
     for(int i=0;i<a->size_of_U_set;i++)
         X_Set[i]=a->U_Set[i];
@@ -367,6 +375,7 @@ void selecting_forward_list(node *a)
 
             }
             size_of_temp1_set=sizec_intersection;
+            free(temp_set);
 
             q.push(ob[pos_of_max]);
             ob[pos_of_max].k_forward_korte_bolse.push(a->id);
@@ -380,21 +389,31 @@ void selecting_forward_list(node *a)
 
             }
             size_of_Z_set=sizec_union;
+
+            free(Z1_Set);
+
             X1_Set=twoset_minus(X_Set,Z_Set,size_of_X_set,size_of_Z_set);
             for(int i=0;i<sizec_minus;i++)
                 X_Set[i]=X1_Set[i];
             size_of_X_set=sizec_minus;
+            free(X1_Set);
 
             flag=areEqual(a->U_Set, Z_Set, a->size_of_U_set, size_of_Z_set);
 
-
+            //free(U2_Set);
         }
     }
     cout<<"Forward_list of : "<<a->id<<": ";
+    
     for(int i=0;i<a->size_of_Forward_list;i++)
     {
         cout<<a->Forward_list[i]<<" ";
+        int index=a->Forward_list[i];
+        ZeroOne[a->id][index]=1;
+        //fprintf(fp2,"%d ",a->Forward_list[i]);
+
     }
+    
     cout<<endl;
 
 }
@@ -432,16 +451,6 @@ void initialization()
                 }
 
         }
-         
-        for(int i=0;i<num_nodes;i++)
-        {
-            for(int j=0;j<num_nodes;j++)
-            {
-                fprintf(fp1,"%d ", arr[i][j]);
-            }
-            fprintf(fp1,"\n");
-        }
-
         
         initialnode();
         
@@ -470,28 +479,29 @@ void initialization()
 
 int main()
 {
-
+    //srand(time(0));
     FILE *fp_in;
     int total_black;
     char p[1000], t[1000], r[1000];
 
-    fp_in=fopen("/home/sadiq/Thesis/NAWRIN_thesis_codes/files1.txt","r");
-
+    fp_in=fopen("/home/sadiq/Thesis/NAWRIN_thesis_codes/f2.txt","r");
+    int x=1;
     while(fscanf(fp_in,"%s",p)!=EOF)
     {
 
-
+        cout<<"Runnning Sceanrio::"<<x<<endl;
+        x++;    
     total_black=0;
     node node_u, node_v;
 
-    strcpy (t,"/home/sadiq/Thesis/NAWRIN_thesis_codes/final input/");
+    strcpy (t,"/home/sadiq/Thesis/NAWRIN_thesis_codes/test_input/");
     strcat(t,p);
     //printf(t);
     fp=fopen(t,"r");
 
    
     strcpy (r,"/home/sadiq/Thesis/NAWRIN_thesis_codes/outDP/");
-     printf("dones");
+     //printf("dones");
     strcat(r,p);
     fp2=fopen(r,"w");
 
@@ -511,6 +521,13 @@ int main()
     }
 
     initialization();
+    
+    for(int i = 0; i < num_nodes; i++){
+        for(int j = 0; j < num_nodes; j++){
+            ZeroOne[i][j]=0;
+        }            
+    }
+    cout<<"Number of Nodes::"<<num_nodes<<'\t';
     
 
             node_v.id=0;
@@ -579,7 +596,16 @@ int main()
             }
 
             cout<<"total forwardings:"<<total_black<<endl;
-            fprintf(fp2," ");
+            //fprintf(fp2, "%s %d\t", "Number of Nodes::",num_nodes);
+            //fprintf(fp2,"total forwarding:: %d\n",total_black);
+            for(int i=0;i<num_nodes;i++)
+            {
+                for(int j=0;j<num_nodes;j++)
+                {
+                    fprintf(fp2,"%d ", ZeroOne[i][j]);
+                }
+                fprintf(fp2,"\n");
+            }
             fclose(fp1);
             fclose(fp);
             fclose(fp2);
@@ -588,6 +614,6 @@ int main()
     }
 
     fclose(fp_in);
-
+    printf("Done running all test cases. Results are in folder outDP\n");
     return 0;
 }

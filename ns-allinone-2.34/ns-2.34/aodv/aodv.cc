@@ -49,16 +49,13 @@ static int extra_route_reply = 0;
 static int limit_route_request = 0;
 static int route_request = 0;
 #endif
-const int MAX_PACK = 1;
-const int TOTAL_NODE = 7;
-static bool forwardingList[TOTAL_NODE][TOTAL_NODE];
+const int MAX_PACK = 50000;
+const int TOTAL_NODE = 100;
 using namespace std;
 
 /*
   TCL Hooks
 */
-
-
 
 int hdr_aodv::offset_;
 static class AODVHeaderClass : public PacketHeaderClass {
@@ -571,15 +568,16 @@ int uid = ch-> uid();
  // XXXXX NOTE: use of incoming flag has been depracated; In order to track direction of pkt flow, direction_ in hdr_cmn is used instead. see packet.h for details.
 printf("receiving in AoDV\n");
 printf("previous node:%d\n", ch->p_node());
+printf("current node:%d\n", index);
 //printf("ptype : %d\n",ch->ptype());
-//printf("uid : %d\n",ch->uid());
+printf("uid : %d\n",ch->uid());
 //printf("phop : %d\n",ch->prev_hop());
 //printf("nhop : %d\n",ch->next_hop());
 //printf("addrstype : %d\n",ch->addr_type());
-printf("saddrs : %d\n",ih->saddr());
+// printf("saddrs : %d\n",ih->saddr());
 //printf("daddrs : %d\n",ih->daddr());
 //printf("numforward: %d\n", ch->num_forwards());
-printf("node id: %d\n", index);
+// printf("node id: %d\n", index);
 
 
 
@@ -589,14 +587,15 @@ printf("node id: %d\n", index);
    return;
  }
 
-  static int track[MAX_NODE][MAX_PACK] = {};
+  static int track[TOTAL_NODE][MAX_PACK] = {};
+  static int forwardingList[TOTAL_NODE][TOTAL_NODE];
   //static int valid_source[TOTAL_NODE] = {-1, -1,  0, 2, -1, -1};
   //we have to read from a file
   // like this
   // node id  ..  list of nodes*
   //list of node = if current node receives from this nodes, it should be forwarded....
 
-  printf("Visited: %d\n", track[index][uid]);
+  //printf("Visited: %d\n", track[index][uid]);
 
 
   
@@ -608,18 +607,22 @@ printf("node id: %d\n", index);
   //   }
   // }
 
-  if (!forwardingList[ch->p_node()][index]){
+  printf("value: %d\n", forwardingList[ch->p_node()][index]);
+  
+  if (forwardingList[ch->p_node()][index] == 0){
     if(ih->saddr() != index){
-      printf("droping because invalid node\n");
+      //printf("droping because invalid node\n");
       drop(p, DROP_NOT_VALID_NODE);
+      printf("%s\n", "DROP_NOT_VALID_NODE");
       return;
     }
   }
   
 
   if(track[index][uid] == 1 ){
-    printf("droping because already has this...\n");
+    //printf("droping because already has this...\n");
     drop(p, DROP_RTR_ROUTE_LOOP);
+    printf("%s\n", "DROP_RTR_ROUTE_LOOP");
     return;
   }else{
     track[index][uid]++;
@@ -645,28 +648,39 @@ printf("node id: %d\n", index);
 
 
 if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
-  printf("initializing new packet\n");
+  //printf("initializing new packet\n");
   // Initialize the forwarding List
   // Read from the file of forwarding list..
-  ifstream outputFile;
+  ifstream outputFile, configFile;
+
+  // configFile.open("/home/sadiq/Thesis/run/config.txt");
+  // string tn, mp;
+  // configFile >> tn;
+  // configFile >> TOTAL_NODE;
+  // configFile >> mp;
+  // configFile >> MAX_PACK;
+
   outputFile.open("/home/sadiq/Thesis/run/output.txt");
   while (!outputFile.eof()) {
     for(int i = 0; i < TOTAL_NODE; i++) { 
       for(int j = 0; j < TOTAL_NODE; j++) {
         bool value;
         outputFile >> value;
+        // printf("v: %d i: %d j: %d \n", value,i,j);
         forwardingList[i][j] = value;
       }
     }
+    break;
   }
   outputFile.close();
-
-  for(int i = 0; i < TOTAL_NODE; i++) { 
-    for(int j = 0; j < TOTAL_NODE; j++) {
-      printf(" %d",forwardingList[i][j]);
-    }
-    printf("\n");
-  }
+  
+   printf("%s\n", "initializing");
+  // for(int i = 0; i < TOTAL_NODE; i++) { 
+  //   for(int j = 0; j < TOTAL_NODE; j++) {
+  //     printf(" %d",forwardingList[i][j]);
+  //   }
+  //   printf("\n");
+  // }
 
 
  /*
@@ -688,7 +702,7 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
   */
 
 else if(ih->saddr() == index) {
-  printf("droping because receiving a packet that i sent\n");
+  // printf("droping because receiving a packet that i sent\n");
   drop(p, DROP_RTR_ROUTE_LOOP);
    return;
  }
@@ -699,10 +713,10 @@ else {
  /*
   *  Check the TTL.  If it is zero, then discard.
   */
-  printf("coming in else\n");
+  // printf("coming in else\n");
 
   if(--ih->ttl_ == 0) {
-      printf("droping because ttl is 0\n");
+      // printf("droping because ttl is 0\n");
       drop(p, DROP_RTR_TTL);
       return;
    }
@@ -713,7 +727,7 @@ else {
    rt_resolve(p);
  }
  else{
-   printf("Found broadcast packet, forwarding\n");
+   // printf("Found broadcast packet, forwarding\n");
    ch->direction() = hdr_cmn::DOWN;
    ch->p_node_ = index;
    //ih->saddr() = index;

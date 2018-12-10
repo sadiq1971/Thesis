@@ -124,19 +124,19 @@ for {set i 0} {$i < $num_nodes} {incr i} {
 
 
 # attach a new Agent/MessagePassing/Flooding to each node on port $MESSAGE_PORT
-for {set i 0} {$i < $num_nodes} {incr i} {
-    set a($i) [new Agent/MessagePassing/Flooding]
-    $n($i) attach  $a($i) $MESSAGE_PORT
-    $a($i) set messages_seen {}
-}
+# for {set i 0} {$i < $num_nodes} {incr i} {
+#     set a($i) [new Agent/MessagePassing/Flooding]
+#     $n($i) attach  $a($i) $MESSAGE_PORT
+#     $a($i) set messages_seen {}
+# }
 
 
 # now set up some events
-$ns at 0.2 "$a(1) send_message 200 1 {first message}  $MESSAGE_PORT"
+$ns at 0.2 "$a(8) send_message 200 1 {first message}  $MESSAGE_PORT"
 #$ns at 0.4 "$a([expr $num_nodes/2]) send_message 600 2 {some big message} $MESSAGE_PORT"
 #$ns at 0.7 "$a([expr $num_nodes-2]) send_message 200 3 {another one} $MESSAGE_PORT"
 
-$ns at 1.0 "finish"
+$ns at 250.0 "finish"
 
 proc finish {} {
         global ns f nf val

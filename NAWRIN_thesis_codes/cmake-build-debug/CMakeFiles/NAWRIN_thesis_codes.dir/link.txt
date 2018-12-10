@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/NAWRIN_thesis_codes.dir/DP.cpp.o  -o NAWRIN_thesis_codes 

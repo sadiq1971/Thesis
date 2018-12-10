@@ -6,14 +6,27 @@ using namespace std;
 int main()
 {
     ifstream input;
-    input.open("scenario");
+    input.open("/home/sadiq/Thesis/run/scenGen/scenario");
     ofstream output;
-    output.open("scen_100_125_625.out");
+    output.open("scen_100_250_625.out");
     
     while(!input.eof()){
-        string value;
+        string value,s;
+        int x;
         input >> value;
-        if() 
+        if(value=="$god_")
+        {
+            input>>s;
+           
+            input>>x;
+            output<<x<<" ";
+            input>>x;
+            output<<x<<" ";
+            input>>x;
+            output<<x<<"\n";
+        
+        }
+        
     }
     
 
