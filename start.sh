@@ -2,12 +2,13 @@
 
 rd=/home/sadiq/Thesis/
 f2=/home/sadiq/Thesis/NAWRIN_thesis_codes/f2.txt
-scendir=/home/sadiq/Thesis/NAWRIN_thesis_codes/test_input 
+scendir=/home/sadiq/Thesis/NAWRIN_thesis_codes/final_input 
+inforalgo=/home/sadiq/Thesis/NAWRIN_thesis_codes/test_input 
 #remove content of f2..., scenario..
-rm $f2
-cd $scendir
-rm *
-cd $rd
+rm -f $f2
+rm -f $scendir/*
+rm -f $inforalgo/*
+
 
 echo -n "Number of Node: "
 read num_nodes
@@ -23,7 +24,6 @@ trange=250
 pwd
 
 
-#setdest -v 1 -n $num_nodes -p 300 -M 1 -t 250 -x $max_xy -y $max_xy >> s1
 
 cd ns-allinone-2.34/ns-2.34/indep-utils/cmu-scen-gen/setdest
 echo "Creating Random Scenario Files"
@@ -31,4 +31,6 @@ scenario_file_name="scen-$num_nodes-$trange-$max_xy-$max_xy-"
 for(( i=1;i<=$sn;i++))
 do
     echo $scenario_file_name$i".out" | tee >> $f2
+    setdest -v 1 -n $num_nodes -p 300 -M 1 -t 250 -x $max_xy -y $max_xy >> $scendir/$scenario_file_name$i.out
+
 done
