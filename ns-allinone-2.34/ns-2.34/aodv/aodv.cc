@@ -566,11 +566,11 @@ int uid = ch-> uid();
  assert(initialized());
  //assert(p->incoming == 0);
  // XXXXX NOTE: use of incoming flag has been depracated; In order to track direction of pkt flow, direction_ in hdr_cmn is used instead. see packet.h for details.
-printf("receiving in AoDV\n");
-printf("previous node:%d\n", ch->p_node());
-printf("current node:%d\n", index);
+// printf("receiving in AoDV\n");
+// printf("previous node:%d\n", ch->p_node());
+// printf("current node:%d\n", index);
 //printf("ptype : %d\n",ch->ptype());
-printf("uid : %d\n",ch->uid());
+// printf("uid : %d\n",ch->uid());
 //printf("phop : %d\n",ch->prev_hop());
 //printf("nhop : %d\n",ch->next_hop());
 //printf("addrstype : %d\n",ch->addr_type());
@@ -607,13 +607,13 @@ printf("uid : %d\n",ch->uid());
   //   }
   // }
 
-  printf("value: %d\n", forwardingList[ch->p_node()][index]);
+  // printf("value: %d\n", forwardingList[ch->p_node()][index]);
   
   if (forwardingList[ch->p_node()][index] == 0){
     if(ih->saddr() != index){
       //printf("droping because invalid node\n");
       drop(p, DROP_NOT_VALID_NODE);
-      printf("%s\n", "DROP_NOT_VALID_NODE");
+      // printf("%s\n", "DROP_NOT_VALID_NODE");
       return;
     }
   }
@@ -622,7 +622,7 @@ printf("uid : %d\n",ch->uid());
   if(track[index][uid] == 1 ){
     //printf("droping because already has this...\n");
     drop(p, DROP_RTR_ROUTE_LOOP);
-    printf("%s\n", "DROP_RTR_ROUTE_LOOP");
+    // printf("%s\n", "DROP_RTR_ROUTE_LOOP");
     return;
   }else{
     track[index][uid]++;
@@ -674,7 +674,7 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
   }
   outputFile.close();
   
-   printf("%s\n", "initializing");
+  //  printf("%s\n", "initializing");
   // for(int i = 0; i < TOTAL_NODE; i++) { 
   //   for(int j = 0; j < TOTAL_NODE; j++) {
   //     printf(" %d",forwardingList[i][j]);

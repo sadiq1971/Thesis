@@ -153,7 +153,7 @@ for {set i 0} {$i < 1000 } { incr i} {
 }
 
 
-$ns at 500 "finish"
+$ns at 250 "finish"
 
 proc finish {} {
         global ns f nf val

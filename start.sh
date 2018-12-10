@@ -52,10 +52,10 @@ DCADS=/home/sadiq/Thesis/NAWRIN_thesis_codes/outDCADS
 DP=/home/sadiq/Thesis/NAWRIN_thesis_codes/outDP
 MCDS=/home/sadiq/Thesis/NAWRIN_thesis_codes/outMCDS
 
-rm -f CACDS/*
-rm -f DCADS/*
-rm -f DP/*
-rm -f MCDS/*
+rm -f $CACDS/*
+rm -f $DCADS/*
+rm -f $DP/*
+rm -f $MCDS/*
 
 
 # all files are  ready
@@ -81,51 +81,64 @@ g++ ./DCACDS.cpp
 scenario=/home/sadiq/Thesis/run/scenario
 output=/home/sadiq/Thesis/run/output.txt
 run=/home/sadiq/Thesis/run
-analyser=/home/sadiq/Thesis/run/Trace\ Analysis
+analyser=/home/sadiq/Thesis/run/Trace_Analysis
 result=/home/sadiq/Thesis/result
+trace=/home/sadiq/Thesis/run/wireless-flooding.tr
 rm -f $result/*
-
+echo "Running ns2 for CACDS.."
 # CACDS
 for(( i=1;i<=$sn;i++))
 do
     cd $run
-    cp $scendir/$scenario_file_name$i.out scenario
-    cp $CACDS/$scenario_file_name$i.out output
+    rm -f $scenario
+    rm -f $output
+    cp $scendir/$scenario_file_name$i.out $scenario
+    cp $CACDS/$scenario_file_name$i.out $output
     ns flooding.tcl
     cd $analyser
-    go run analyser.go >> $result/cacds
+    ./Trace_Analysis >> $result/cacds
 
 done
+echo "Running ns2 for DCADS.."
 # DCADS
 for(( i=1;i<=$sn;i++))
 do
     cd $run
-    cp $scendir/$scenario_file_name$i.out scenario
-    cp $DCADS/$scenario_file_name$i.out output
+    rm -f $scenario
+    rm -f $output
+    cp $scendir/$scenario_file_name$i.out $scenario
+    cp $DCADS/$scenario_file_name$i.out $output
     ns flooding.tcl
     cd $analyser
-    go run analyser.go >> $result/dcads
+    ./Trace_Analysis >> $result/dcads
 
 done
+
+echo "Running ns2 for DP.."
 # DP
 for(( i=1;i<=$sn;i++))
 do
     cd $run
-    cp $scendir/$scenario_file_name$i.out scenario
-    cp $DP/$scenario_file_name$i.out output
+    rm -f $scenario
+    rm -f $output
+    cp $scendir/$scenario_file_name$i.out $scenario
+    cp $DP/$scenario_file_name$i.out $output
     ns flooding.tcl
     cd $analyser
-    go run analyser.go >> $result/dp
+    ./Trace_Analysis >> $result/dp
 
 done
+echo "Running ns2 for MCDS.."
 # MCDS
 for(( i=1;i<=$sn;i++))
 do
     cd $run
-    cp $scendir/$scenario_file_name$i.out scenario
-    cp $MCDS/$scenario_file_name$i.out output
+    rm -f $scenario
+    rm -f $output
+    cp $scendir/$scenario_file_name$i.out $scenario
+    cp $MCDS/$scenario_file_name$i.out $output
     ns flooding.tcl
     cd $analyser
-    go run analyser.go >> $result/mcds
+    ./Trace_Analysis >> $result/mcds
 
 done

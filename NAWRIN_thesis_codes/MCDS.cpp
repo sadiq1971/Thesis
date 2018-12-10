@@ -370,7 +370,7 @@ else{
       camcds[i]=ColorB[i];
 
   }
-//   Print_array(ColorB,ColorB_count);
+  Print_array(ColorB,ColorB_count);
 
 
  //fprintf(fp2," ");
