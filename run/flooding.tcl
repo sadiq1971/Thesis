@@ -8,7 +8,7 @@ set BROADCAST_ADDR -1
 # variables which control the number of nodes and how they're grouped
 # (see topology creation code below)
 
-set num_nodes 100
+set num_nodes 7
 
 
 set val(chan)           Channel/WirelessChannel    ;#Channel Type
@@ -25,7 +25,7 @@ set val(mac)            Mac/802_11                 ;# MAC type
 set val(ifq)            Queue/DropTail/PriQueue    ;# interface queue type
 set val(ll)             LL                         ;# link layer type
 set val(ant)            Antenna/OmniAntenna        ;# antenna model
-set val(ifqlen)         50                         ;# max packet in ifq
+set val(ifqlen)         10                         ;# max packet in ifq
 
 
 # DumbAgent, AODV, and DSDV work.  DSR is broken
@@ -145,15 +145,15 @@ source $val(cp)
 # $ns at 0.4 "$a(1) send_message 600 2 {some big message} $MESSAGE_PORT"
 # $ns at 0.6 "$a(2) send_message 200 3 {another one} $MESSAGE_PORT"
 
-set b 4
-for {set i 0} {$i < 1000 } { incr i} {
+set b 1
+for {set i 0} {$i < 100 } { incr i} {
     set num [expr {$i % $num_nodes}]
-    $ns at [expr $i / $b] "$a($num) send_message 200 3 {first message}  $MESSAGE_PORT"
+    $ns at [expr $i / $b] "$a(0) send_message 200 3 {first message}  $MESSAGE_PORT"
     # $ns at $i "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
 }
 
 
-$ns at 250 "finish"
+$ns at 5000 "finish"
 
 proc finish {} {
         global ns f nf val

@@ -22,8 +22,7 @@ echo -n "Number of scenario: "
 read sn
 trange=250
 
-#echo " $num_nodes $max_xy $sn"
-#pwd
+
 
 
 
@@ -142,3 +141,16 @@ do
     ./Trace_Analysis >> $result/mcds
 
 done
+
+ra=/home/sadiq/Thesis/result/resultAnalysis
+cacds=/home/sadiq/Thesis/result/cacds
+dcads=/home/sadiq/Thesis/result/dcads
+dp=/home/sadiq/Thesis/result/dp
+mcds=/home/sadiq/Thesis/result/mcds
+fn=/home/sadiq/Thesis/result/final_result
+rm -f $fn
+
+cd $ra
+g++ ./analysis.cpp
+./a.out $mcds $cacds $dp $dcads $fn $sn
+

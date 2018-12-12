@@ -50,7 +50,7 @@ static int limit_route_request = 0;
 static int route_request = 0;
 #endif
 const int MAX_PACK = 50000;
-const int TOTAL_NODE = 100;
+const int TOTAL_NODE = 7;
 using namespace std;
 
 /*

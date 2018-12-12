@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	const MAX_NODE = 100
+	const MAX_NODE = 7
 	const MAX_PACK = 100000
 
 	var timeTracket [MAX_NODE][MAX_PACK]float64
@@ -206,16 +206,16 @@ func main() {
 	// fmt.Println("Total forwarded packet", totalForwardedPacket)
 	var averageForwarding = float64(totalForwardedPacket) / float64(validPackate)
 	// var averageDropped = float64(totalDropPacket) / float64(validPackate)
-	fmt.Println("Average Forwarding:", averageForwarding)
+
 	// fmt.Println("Average DroppedPacket: ", averageDropped)
 	// fmt.Println("Average Delay (For succ pkt only): ", float64(averageDelay)/float64(successfullForwarding))
-	fmt.Println("Average Delay : ",
+	fmt.Println("Average_Delay: ",
 		float64(totalDelay)/float64(validPackate))
-	// fmt.Println("Packet received by all nodes: ", successfullForwarding)
-	fmt.Println("Average Collision: ",
-		float64(averageCollision)/float64(validPackate))
-	fmt.Println("Reachability in percentage: ",
+	fmt.Println("Reachability_in_percentage: ",
 		float64(reachability)/(float64(validPackate)*float64(MAX_NODE)))
-	fmt.Println()
+	// fmt.Println("Packet received by all nodes: ", successfullForwarding)
+	fmt.Println("Average_Forwarding:", averageForwarding)
+	fmt.Println("Average_Collision: ",
+		float64(averageCollision)/float64(validPackate))
 
 }

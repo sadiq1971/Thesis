@@ -1,5 +1,40 @@
-Average Forwarding: 5.876
-Average Delay :  0.04119833501599987
-Average Collision:  14.292
-Reachability in percentage:  0.82971
-
+Average_Delay:  0.03689999520600024
+Reachability_in_percentage:  0.83482
+Average_Forwarding: 5.089
+Average_Collision:  10.169
+Average_Delay:  0.034807603135999586
+Reachability_in_percentage:  0.81577
+Average_Forwarding: 4.965
+Average_Collision:  9.174
+Average_Delay:  0.047472866892999975
+Reachability_in_percentage:  0.82361
+Average_Forwarding: 6.588
+Average_Collision:  14.765
+Average_Delay:  0.04093564543799984
+Reachability_in_percentage:  0.84283
+Average_Forwarding: 5.957
+Average_Collision:  17.629
+Average_Delay:  0.026553069425999696
+Reachability_in_percentage:  0.80209
+Average_Forwarding: 4.108
+Average_Collision:  7.465
+Average_Delay:  0.03968299291099986
+Reachability_in_percentage:  0.87433
+Average_Forwarding: 5.29
+Average_Collision:  8.398
+Average_Delay:  0.04209890418000031
+Reachability_in_percentage:  0.83314
+Average_Forwarding: 5.88
+Average_Collision:  12.773
+Average_Delay:  0.03624302536500022
+Reachability_in_percentage:  0.82878
+Average_Forwarding: 5.035
+Average_Collision:  9.614
+Average_Delay:  0.0421667100569999
+Reachability_in_percentage:  0.85228
+Average_Forwarding: 6.007
+Average_Collision:  15.847
+Average_Delay:  0.039330799049000026
+Reachability_in_percentage:  0.82523
+Average_Forwarding: 5.822
+Average_Collision:  14.723

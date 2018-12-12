@@ -1,0 +1,26 @@
+1pkt/sec...
+
+
+CACDS
+Average_Delay:  0.007929013820000209
+Reachability_in_percentage:  0.9971428571428571
+Average_Forwarding: 3
+Average_Collision:  0.06
+
+MCDS
+Average_Delay:  0.007521577699999812
+Reachability_in_percentage:  0.9942857142857143
+Average_Forwarding: 3
+Average_Collision:  0.06
+
+DP
+Average_Delay:  0.007405821220000206
+Reachability_in_percentage:  0.9914285714285714
+Average_Forwarding: 4.94
+Average_Collision:  0.09
+
+DCADS
+Average_Delay:  0.007745929040000385
+Reachability_in_percentage:  1
+Average_Forwarding: 6
+Average_Collision:  0.12
