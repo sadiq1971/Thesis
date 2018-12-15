@@ -50,14 +50,17 @@
  * Wei Ye, weiye@isi.edu, 2000
  */
 
-
+#include <iostream>
 #include <math.h>
+#include <string.h>
 #include <stdlib.h>
-#include <iostream.h>
+
 
 #ifndef M_PI
 #define M_PI 3.14159265359
 #endif
+
+using namespace std;
 
 double Friis(double Pt, double Gt, double Gr, double lambda, double L, double d)
 {
@@ -153,8 +156,7 @@ double inv_Q(double y)
 }
 
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv){
 	
 	// specify default values
 	char** propModel = NULL;       // propagation model

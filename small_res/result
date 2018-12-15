@@ -1,26 +1,59 @@
+======================
+B/W: 1MB/sec
+message size: 200 bytes
+======================
+
+
 1pkt/sec...
 
-
 CACDS
-Average_Delay:  0.007929013820000209
-Reachability_in_percentage:  0.9971428571428571
+Average_Delay:  0.0016914653680009546
+Reachability_in_percentage:  1
 Average_Forwarding: 3
-Average_Collision:  0.06
+Average_Collision:  0
 
 MCDS
-Average_Delay:  0.007521577699999812
-Reachability_in_percentage:  0.9942857142857143
+Average_Delay:  0.002123021521998824
+Reachability_in_percentage:  1
 Average_Forwarding: 3
-Average_Collision:  0.06
+Average_Collision:  0
 
 DP
-Average_Delay:  0.007405821220000206
-Reachability_in_percentage:  0.9914285714285714
-Average_Forwarding: 4.94
-Average_Collision:  0.09
+Average_Delay:  0.002073202082998815
+Reachability_in_percentage:  1
+Average_Forwarding: 4.861
+Average_Collision:  0
 
 DCADS
-Average_Delay:  0.007745929040000385
+Average_Delay:  0.0017085581290000316
 Reachability_in_percentage:  1
-Average_Forwarding: 6
-Average_Collision:  0.12
+Average_Forwarding: 5.908
+Average_Collision:  0
+=====================================================
+
+
+4pkt/sec...
+
+CACDS
+Average_Delay:  0.0042448139369997764
+Reachability_in_percentage:  0.9974285714285714
+Average_Forwarding: 2.991
+Average_Collision:  0
+
+MCDS
+Average_Delay:  0.005182797324000178
+Reachability_in_percentage:  0.9918571428571429
+Average_Forwarding: 2.972
+Average_Collision:  0
+
+DP
+Average_Delay:  0.005259704661000043
+Reachability_in_percentage:  0.9624285714285714
+Average_Forwarding: 4.444
+Average_Collision:  0
+
+DCADS
+Average_Delay:  0.00496051941399957
+Reachability_in_percentage:  0.9571428571428572
+Average_Forwarding: 5.047
+Average_Collision:  0

@@ -1,4 +1,9 @@
 # Don't track content of these folders
+NAWRIN_thesis_codes/final_input
+NAWRIN_thesis_codes/outCACDS
+NAWRIN_thesis_codes/outDCADS
+NAWRIN_thesis_codes/outMCDS
+NAWRIN_thesis_codes/test_input
 
 # Compiled source #
 ###################

@@ -1,6 +1,4 @@
 
-Mac/802_11 set bandwidth_ 1Mb
-
 set MESSAGE_PORT 42
 set BROADCAST_ADDR -1
 
@@ -8,7 +6,7 @@ set BROADCAST_ADDR -1
 # variables which control the number of nodes and how they're grouped
 # (see topology creation code below)
 
-set num_nodes 7
+set num_nodes 100
 
 
 set val(chan)           Channel/WirelessChannel    ;#Channel Type
@@ -25,7 +23,7 @@ set val(mac)            Mac/802_11                 ;# MAC type
 set val(ifq)            Queue/DropTail/PriQueue    ;# interface queue type
 set val(ll)             LL                         ;# link layer type
 set val(ant)            Antenna/OmniAntenna        ;# antenna model
-set val(ifqlen)         10                         ;# max packet in ifq
+set val(ifqlen)         50                         ;# max packet in ifq
 
 
 # DumbAgent, AODV, and DSDV work.  DSR is broken
@@ -34,18 +32,67 @@ set val(ifqlen)         10                         ;# max packet in ifq
 #set val(rp)             DSR
 set val(rp)              AODV
 
-
-Mac/802_11 set RTSThreshold_          2346            ;# bytes
-Mac/802_11 set ShortRetryLimit_       7               ;# retransmittions
-Mac/802_11 set LongRetryLimit_        4               ;# retransmissions
-
-
 # size of the topography
-set val(x)              650
-set val(y)              650
+set val(x)              625
+set val(y)              625
+set val(rlen)		    10
 
 set val(sc)             "scenario"
 set val(cp)             "cbr" 
+
+
+#set Propagation parameters
+$val(prop) set pathlossExp_ 2.5 
+$val(prop) set std_db_ 2.0 
+
+#set PHY parameters
+
+#2.4 GHz frequency
+# $val(netif) set freq_ 2.4e+09 
+$val(netif) set freq_ 2.4e+09
+
+#100 mW from Cisco 350
+$val(netif) set Pt_ 0.0002765
+
+set rxthresh 3.9810717055e-13
+set cpthresh -2.92
+# set csthresh [expr {325*$rxthresh}]
+set csthresh [expr {0.9*$rxthresh}]
+
+
+$val(netif) set RXThresh_ $rxthresh  ;# receiver sensitivity
+$val(netif) set CPThresh_ $cpthresh  ;# capture threshold
+$val(netif) set CSThresh_ $csthresh
+# $val(netif) set bandwidth_ $val(rate)
+
+
+
+#set MAC parameters
+#$val(mac) set bandwidth_ $val(rate)
+
+#set rate 1048576
+set rate 10e+6
+$val(mac) set basicRate_ $rate
+$val(mac) set dataRate_ $rate
+#set RTSThreshold to some v. large value...effectively shutting down RTS/CTS
+$val(mac) set RTSThreshold_ 10192
+
+# 
+# 
+# 
+
+
+# transmit power: 0.281838
+# frequency: 9.14e+08
+# transmit antenna gain: 1
+# receive antenna gain: 1
+# system loss: 1
+# transmit antenna height: 1.5
+# receive antenna height: 1.5
+
+# Receiving threshold RXThresh_ is:3.65262e-10
+
+
 
 set ns [new Simulator]
 
@@ -153,7 +200,7 @@ for {set i 0} {$i < 100 } { incr i} {
 }
 
 
-$ns at 5000 "finish"
+$ns at 100 "finish"
 
 proc finish {} {
         global ns f nf val
@@ -161,8 +208,8 @@ proc finish {} {
         close $f
         close $nf
 
-        #puts "running nam..."
-        #exec nam wireless-flooding.nam &
+        # puts "running nam..."
+        # exec nam wireless-flooding.nam &
         exit 0
 }
 
