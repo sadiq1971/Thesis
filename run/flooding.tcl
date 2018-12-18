@@ -52,17 +52,19 @@ $val(prop) set std_db_ 2.0
 $val(netif) set freq_ 2.4e+09
 
 #100 mW from Cisco 350
-$val(netif) set Pt_ 0.0002765
+
+# $val(netif) set Pt_ 0.0003074  ;# for csr = tmr = 250
+$val(netif) set Pt_ 0.0003074
 
 set rxthresh 3.9810717055e-13
 set cpthresh -2.92
 # set csthresh [expr {325*$rxthresh}]
-set csthresh [expr {0.9*$rxthresh}]
+set csthresh [expr {1*$rxthresh}]
 
 
 $val(netif) set RXThresh_ $rxthresh  ;# receiver sensitivity
 $val(netif) set CPThresh_ $cpthresh  ;# capture threshold
-$val(netif) set CSThresh_ $csthresh
+$val(netif) set CSThresh_ $csthresh  ;# carreir sense thresold
 # $val(netif) set bandwidth_ $val(rate)
 
 
@@ -195,7 +197,7 @@ source $val(cp)
 set b 1
 for {set i 0} {$i < 100 } { incr i} {
     set num [expr {$i % $num_nodes}]
-    $ns at [expr $i / $b] "$a(0) send_message 200 3 {first message}  $MESSAGE_PORT"
+    $ns at [expr $i / $b] "$a($num) send_message 200 3 {first message}  $MESSAGE_PORT"
     # $ns at $i "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
 }
 

@@ -83,7 +83,28 @@ run=/home/sadiq/Thesis/run
 analyser=/home/sadiq/Thesis/run/Trace_Analysis
 result=/home/sadiq/Thesis/result
 trace=/home/sadiq/Thesis/run/wireless-flooding.tr
+current_output=/home/sadiq/Thesis/run/current_output
 rm -f $result/*
+
+
+
+echo "Running ns2 for MCDS.."
+# MCDS
+for(( i=1;i<=$sn;i++))
+do
+    cd $run
+    rm -f $scenario
+    rm -f $output
+    rm -f $current_output
+    cp $scendir/$scenario_file_name$i.out $scenario
+    # cp $MCDS/$scenario_file_name$i.out $output
+    echo $MCDS | tee >> $current_output
+    echo $MCDS/$scenario_file_name$i".out" | tee >> $current_output
+    ns flooding.tcl
+    cd $analyser
+    ./Trace_Analysis >> $result/mcds
+
+done
 echo "Running ns2 for CACDS.."
 # CACDS
 for(( i=1;i<=$sn;i++))
@@ -91,8 +112,11 @@ do
     cd $run
     rm -f $scenario
     rm -f $output
+    rm -f current_output
     cp $scendir/$scenario_file_name$i.out $scenario
-    cp $CACDS/$scenario_file_name$i.out $output
+    # cp $CACDS/$scenario_file_name$i.out $output
+    echo $CACDS | tee >> $current_output
+    echo $CACDS/$scenario_file_name$i".out" | tee >> $current_output
     ns flooding.tcl
     cd $analyser
     ./Trace_Analysis >> $result/cacds
@@ -105,8 +129,11 @@ do
     cd $run
     rm -f $scenario
     rm -f $output
+    rm -f $current_output
     cp $scendir/$scenario_file_name$i.out $scenario
-    cp $DCADS/$scenario_file_name$i.out $output
+    # cp $DCADS/$scenario_file_name$i.out0 $output
+    echo "DCADS" | tee >> $current_output
+    echo $DCADS/$scenario_file_name$i".out" | tee >> $current_output
     ns flooding.tcl
     cd $analyser
     ./Trace_Analysis >> $result/dcads
@@ -120,27 +147,17 @@ do
     cd $run
     rm -f $scenario
     rm -f $output
+    rm -f $current_output
     cp $scendir/$scenario_file_name$i.out $scenario
-    cp $DP/$scenario_file_name$i.out $output
+    # cp $DP/$scenario_file_name$i.out0 $output
+    echo "DP" | tee >> $current_output
+    echo $DP/$scenario_file_name$i".out" | tee >> $current_output
     ns flooding.tcl
     cd $analyser
     ./Trace_Analysis >> $result/dp
 
 done
-echo "Running ns2 for MCDS.."
-# MCDS
-for(( i=1;i<=$sn;i++))
-do
-    cd $run
-    rm -f $scenario
-    rm -f $output
-    cp $scendir/$scenario_file_name$i.out $scenario
-    cp $MCDS/$scenario_file_name$i.out $output
-    ns flooding.tcl
-    cd $analyser
-    ./Trace_Analysis >> $result/mcds
 
-done
 
 ra=/home/sadiq/Thesis/result/resultAnalysis
 cacds=/home/sadiq/Thesis/result/cacds

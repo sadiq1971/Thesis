@@ -35,6 +35,7 @@ The AODV code developed by the CMU/MONARCH group was optimized and tuned by Sami
 #include <random.h>
 #include <cmu-trace.h>
 #include<fstream>
+#include<bits/stdc++.h>
 //#include <energy-model.h>
 
 
@@ -49,10 +50,12 @@ static int extra_route_reply = 0;
 static int limit_route_request = 0;
 static int route_request = 0;
 #endif
-const int MAX_PACK = 50000;
+const int MAX_PACK = 5000;
 const int TOTAL_NODE =100;
+static int track[TOTAL_NODE][MAX_PACK] = {};
+int forwardingList[TOTAL_NODE][TOTAL_NODE];
 using namespace std;
-
+ 
 /*
   TCL Hooks
 */
@@ -587,8 +590,7 @@ int uid = ch-> uid();
    return;
  }
 
-  static int track[TOTAL_NODE][MAX_PACK] = {};
-  static int forwardingList[TOTAL_NODE][TOTAL_NODE];
+ 
   //static int valid_source[TOTAL_NODE] = {-1, -1,  0, 2, -1, -1};
   //we have to read from a file
   // like this
@@ -660,7 +662,21 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
   // configFile >> mp;
   // configFile >> MAX_PACK;
 
-  outputFile.open("/home/sadiq/Thesis/run/output.txt");
+  string path = "/home/sadiq/Thesis/run/current_output";
+  configFile.open(path);
+  string algo;
+  char ofpath[200];
+  configFile >> algo;
+  configFile >> ofpath;
+  
+  if (algo == "DP" || algo == "DCADS") {
+    stringstream cwn_s;
+    cwn_s << index;
+    strcat(ofpath,cwn_s.str().c_str());
+  }
+  // cout<<ofpath<<endl;
+
+  outputFile.open(ofpath);
   while (!outputFile.eof()) {
     for(int i = 0; i < TOTAL_NODE; i++) { 
       for(int j = 0; j < TOTAL_NODE; j++) {

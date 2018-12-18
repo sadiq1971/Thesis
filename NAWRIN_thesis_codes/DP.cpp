@@ -477,9 +477,10 @@ void initialization()
 
 
 
-int main()
+int main(int charc, char *charv[])
 {
     //srand(time(0));
+    int starting_node = atoi(charv[1]);
     FILE *fp_in;
     int total_black;
     char p[1000], t[1000], r[1000];
@@ -490,7 +491,7 @@ int main()
     {
 
         // cout<<"Runnning Sceanrio::"<<x<<endl;
-        x++;    
+    x++;    
     total_black=0;
     node node_u, node_v;
 
@@ -502,7 +503,10 @@ int main()
    
     strcpy (r,"/home/sadiq/Thesis/NAWRIN_thesis_codes/outDP/");
      //printf("dones");
+    stringstream cwn_s;
+    cwn_s << starting_node;
     strcat(r,p);
+    strcat(r,cwn_s.str().c_str());
     fp2=fopen(r,"w");
 
     fp1=fopen("out.txt","w");
@@ -530,7 +534,7 @@ int main()
     // cout<<"Number of Nodes::"<<num_nodes<<'\t';
     
 
-            node_v.id=0;
+            node_v.id=starting_node;
             q.push(node_v);
             node_v.k_forward_korte_bolse.push(null_node.id);
 

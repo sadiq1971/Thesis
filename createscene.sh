@@ -69,10 +69,16 @@ g++ ./Centralized\ CACDS.cpp
 ./a.out
 
 g++ ./DP.cpp
-./a.out
+for(( i=0;i<$num_nodes;i++))
+do
+    ./a.out $i
+done
 
 g++ ./DCACDS.cpp
-./a.out
+for(( i=0;i<$num_nodes;i++))
+do
+    ./a.out $i
+done
 
 # # output files are generated...
 # # now run the ns simulator.... 
