@@ -609,27 +609,9 @@ int uid = ch-> uid();
   //   }
   // }
 
+
   // printf("value: %d\n", forwardingList[ch->p_node()][index]);
   
-  if (forwardingList[ch->p_node()][index] == 0){
-    if(ih->saddr() != index){
-      //printf("droping because invalid node\n");
-      drop(p, DROP_NOT_VALID_NODE);
-      // printf("%s\n", "DROP_NOT_VALID_NODE");
-      return;
-    }
-  }
-  
-
-  if(track[index][uid] == 1 ){
-    //printf("droping because already has this...\n");
-    drop(p, DROP_RTR_ROUTE_LOOP);
-    // printf("%s\n", "DROP_RTR_ROUTE_LOOP");
-    return;
-  }else{
-    track[index][uid]++;
-  }
-
 
 //ch->v_node_.push_back(index);
   /*
@@ -721,7 +703,7 @@ else if(ih->saddr() == index) {
   // printf("droping because receiving a packet that i sent\n");
   drop(p, DROP_RTR_ROUTE_LOOP);
    return;
- }
+}
  /*
   *  Packet I'm forwarding...
   */
@@ -736,14 +718,48 @@ else {
       drop(p, DROP_RTR_TTL);
       return;
    }
- }
+}
+
+
+
+if(track[index][uid] == 1 ){
+  //printf("droping because already has this...\n");
+  drop(p, DROP_NOT_VALID_NODE);
+  // printf("%s\n", "DROP_RTR_ROUTE_LOOP");
+  return;
+}else{
+  track[index][uid]++;
+}
+
+if (forwardingList[ch->p_node()][index] == 0){
+  if(ih->saddr() != index){
+    // printf("droping because invalid node\n");
+    drop(p, DROP_NOT_VALID_NODE);
+    // printf("%s\n", "DROP_NOT_VALID_NODE");
+    return;
+  }
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Added by Parag Dadhania && John Novatnack to handle broadcasting
  if ( (u_int32_t)ih->daddr() != IP_BROADCAST){
    rt_resolve(p);
  }
  else{
-   // printf("Found broadcast packet, forwarding\n");
+  //  printf("Found broadcast packet, forwarding\n");
    ch->direction() = hdr_cmn::DOWN;
    ch->p_node_ = index;
    //ih->saddr() = index;
