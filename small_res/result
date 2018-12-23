@@ -1,59 +1,26 @@
-======================
-B/W: 1MB/sec
-message size: 200 bytes
-======================
+=====================
+for 7 nodes, 1pkt/sec
+=====================
+algo     Delay     Reachability     D/R        A.Forwarding      F/R     
+MCDS   0.0017005     1           0.0017005        3               3       
+CACDS  0.00126411    1           0.00126411       3               3       
+DP     0.00282756    1           0.00282756       4.91            4.91    
+DCADS  0.00263524    1           0.00263524       5               5       
 
+===========================================
+for 100 nodes, 1pkt/sec, 10 random scenario
+===========================================
+algo     Delay     Reachability     D/R        A.Forwarding      F/R       A.Colission
+MCDS   0.00313397    0.98019      0.0031973       6.486      6.61708       0
+CACDS  0.00308092    0.9901      0.00311173       6.586      6.65185       0
+DP     0.00403403    0.98944      0.00407708       10.818      10.9335       0 
+DCADS  0.00401181    0.98917      0.00405574       11.846      11.9757       0
 
-1pkt/sec...
-
-CACDS
-Average_Delay:  0.0016914653680009546
-Reachability_in_percentage:  1
-Average_Forwarding: 3
-Average_Collision:  0
-
-MCDS
-Average_Delay:  0.002123021521998824
-Reachability_in_percentage:  1
-Average_Forwarding: 3
-Average_Collision:  0
-
-DP
-Average_Delay:  0.002073202082998815
-Reachability_in_percentage:  1
-Average_Forwarding: 4.861
-Average_Collision:  0
-
-DCADS
-Average_Delay:  0.0017085581290000316
-Reachability_in_percentage:  1
-Average_Forwarding: 5.908
-Average_Collision:  0
-=====================================================
-
-
-4pkt/sec...
-
-CACDS
-Average_Delay:  0.0042448139369997764
-Reachability_in_percentage:  0.9974285714285714
-Average_Forwarding: 2.991
-Average_Collision:  0
-
-MCDS
-Average_Delay:  0.005182797324000178
-Reachability_in_percentage:  0.9918571428571429
-Average_Forwarding: 2.972
-Average_Collision:  0
-
-DP
-Average_Delay:  0.005259704661000043
-Reachability_in_percentage:  0.9624285714285714
-Average_Forwarding: 4.444
-Average_Collision:  0
-
-DCADS
-Average_Delay:  0.00496051941399957
-Reachability_in_percentage:  0.9571428571428572
-Average_Forwarding: 5.047
-Average_Collision:  0
+===========================================
+for 100 nodes, 1pkt/sec, 10 random scenario
+===========================================
+algo     Delay     Reachability     D/R        A.Forwarding      F/R       A.Colission
+MCDS   0.00321096    0.9901      0.00324307       6.586      6.65185       0
+CACDS  0.00310479    0.9901      0.00313584       6.586      6.65185       0
+DP     0.00404769    0.9899      0.00408898       10.965      11.0769       0
+DCADS  0.00412711    0.98999      0.00416884       12.272      12.3961       0

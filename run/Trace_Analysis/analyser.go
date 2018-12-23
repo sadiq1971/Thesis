@@ -9,9 +9,10 @@ import (
 
 func main() {
 	const MAX_NODE = 100
-	const MAX_PACK = 100000
+	const MAX_PACK = 10000
 
 	var timeTracket [MAX_NODE][MAX_PACK]float64
+	var rTracker [MAX_NODE][MAX_PACK]float64
 	var isForwardNode [MAX_NODE][MAX_PACK]bool
 	var dropedPacket [MAX_PACK]int
 	var forwardedPacket [MAX_PACK]int
@@ -23,6 +24,7 @@ func main() {
 	for i := range timeTracket {
 		for j := range timeTracket[i] {
 			timeTracket[i][j] = -1
+			rTracker[i][j] = -1
 			isForwardNode[i][j] = false
 			dropedPacket[j] = 0
 			forwardedPacket[j] = 0
@@ -59,9 +61,23 @@ func main() {
 					packet, _ := strconv.ParseInt(line["-Ii"], 10, 64)
 					layer := line["-Nl"]
 					if layer == "RTR" {
+						// isForwardNode[node][packet] = true
+						// forwardedPacket[packet]++
+						// totalForwardedPacket++
+						if timeTracket[node][packet] == -1 {
+							//fmt.Println("Comes")
+							timeTracket[node][packet], _ = strconv.ParseFloat(line["-t"], 64)
+						}
+						rTracker[node][packet] = 1
+					}
+					if layer == "MAC" {
 						isForwardNode[node][packet] = true
 						forwardedPacket[packet]++
 						totalForwardedPacket++
+						if timeTracket[node][packet] == -1 {
+							//fmt.Println("Comes")
+							timeTracket[node][packet], _ = strconv.ParseFloat(line["-t"], 64)
+						}
 					}
 
 					break
@@ -73,7 +89,7 @@ func main() {
 			break
 
 		case "f":
-			totalForwardedPacket++
+			// totalForwardedPacket++
 			line := make(map[string]string)
 			line["0"] = words
 			for {
@@ -83,10 +99,14 @@ func main() {
 					//fmt.Println("t == ", line["-t"])
 					//fmt.Println("Node Id == ", line["-Ni"])
 					//fmt.Println("Network Layer == ", line["-Nl"])
-					node, _ := strconv.ParseInt(line["-Ni"], 10, 64)
-					packet, _ := strconv.ParseInt(line["-Ii"], 10, 64)
-					isForwardNode[node][packet] = true
-					forwardedPacket[packet]++
+					// node, _ := strconv.ParseInt(line["-Ni"], 10, 64)
+					// packet, _ := strconv.ParseInt(line["-Ii"], 10, 64)
+					// if line["-Nl"] == "RTR" && timeTracket[node][packet] == -1 {
+					// 	//fmt.Println("Comes")
+					// 	timeTracket[node][packet], _ = strconv.ParseFloat(line["-t"], 64)
+					// }
+					// isForwardNode[node][packet] = true
+					// forwardedPacket[packet]++
 
 					break
 				}
@@ -133,9 +153,9 @@ func main() {
 					node, _ := strconv.ParseInt(line["-Ni"], 10, 64)
 					packet, _ := strconv.ParseInt(line["-Ii"], 10, 64)
 
-					if line["-Nl"] == "RTR" && timeTracket[node][packet] == -1 {
+					if line["-Nl"] == "RTR" {
 						//fmt.Println("Comes")
-						timeTracket[node][packet], _ = strconv.ParseFloat(line["-t"], 64)
+						rTracker[node][packet] = 1
 					}
 
 					break
@@ -186,7 +206,7 @@ func main() {
 
 			totalReceived := 0
 			for k := 0; k < MAX_NODE; k++ {
-				if timeTracket[k][i] != -1 {
+				if rTracker[k][i] != -1 {
 					// fmt.Print(k, " ")
 					totalReceived++
 					reachability++

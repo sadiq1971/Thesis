@@ -20,7 +20,7 @@ read max_xy
 
 echo -n "Number of scenario: "
 read sn
-trange=250
+trange=100
 
 
 
@@ -65,20 +65,20 @@ cd $algo
 g++ ./MCDS.cpp
 ./a.out
 
-g++ ./Centralized\ CACDS.cpp
-./a.out
+# g++ ./Centralized\ CACDS.cpp
+# ./a.out
 
-g++ ./DP.cpp
-for(( i=0;i<$num_nodes;i++))
-do
-    ./a.out $i
-done
+# g++ ./DP.cpp
+# for(( i=0;i<$num_nodes;i++))
+# do
+#     ./a.out $i
+# done
 
-g++ ./DCACDS.cpp
-for(( i=0;i<$num_nodes;i++))
-do
-    ./a.out $i
-done
+# g++ ./DCACDS.cpp
+# for(( i=0;i<$num_nodes;i++))
+# do
+#     ./a.out $i
+# done
 
 # # output files are generated...
 # # now run the ns simulator.... 

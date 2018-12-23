@@ -1,0 +1,111 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage{cite}
+\usepackage{balance} % to use \balance command for balancing
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{mathrsfs,amsthm}
+\usepackage{textcomp} 
+%\usepackage{siunitx}
+\usepackage{lettrine}
+\usepackage{dirtytalk}
+\usepackage[letterpaper,left=.62in, right=.62in, top=0.75in, bottom=1.0in]{geometry}
+%\usepackage[a4paper,left=1in, right=1.0in, top=1.0in, bottom=1.0in]{geometry}
+\usepackage{pslatex}			% use for Times new roman 
+%\usepackage{sectsty}			% To control section, subsection.... font size
+\usepackage{latexsym}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+\usepackage{lipsum}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{ltablex}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multicol}
+\def\NoNumber#1{{\def\alglinenumber##1{}\State #1}\addtocounter{ALG@line}{-1}}
+
+
+\usepackage{amssymb,amsmath,epsfig,latexsym,graphicx,bm,listings,color,amsthm,tabu}
+\usepackage[utf8]{inputenc}
+
+\usepackage{url}
+\usepackage{comment}
+%\ifCLASSOPTIONcompsoc
+%    \usepackage[caption=false, font=normalsize, labelfont=sf, textfont=sf]{subfig}
+%\else
+%\usepackage[caption=false, font=footnotesize]{subfig}
+%\fi
+
+%\usepackage{epsfig}
+\renewcommand\IEEEkeywordsname{Index Terms}
+\begin{document}
+
+\DeclareRobustCommand*{\IEEEauthorrefmark}[1]{%
+  \raisebox{0pt}[0pt][0pt]{\textsuperscript{\footnotesize\ensuremath{#1}}}}
+
+%\onecolumn
+
+\title{A Contention Aware Connected Dominating Set Construction Algorithm for Wireless Ad-Hoc Networks}
+
+
+\author{\IEEEauthorblockN{Chowdhury Nawrin Ferdous}
+\IEEEauthorblockA{Department of Computer Science and Engineering\\
+Bangladesh University of Engineering and Technology\\
+Dhaka, Bangladesh\\
+Email: bipashachowdhury03@gmail.com}
+\and
+\IEEEauthorblockN{Ashikur Rahman}
+\IEEEauthorblockA{Department of Computer Science and Engineering\\
+Bangladesh University of Engineering and Technology\\
+Dhaka, Bangladesh\\
+Email: ashikur@cse.buet.ac.bd}
+}
+
+%****************************
+% The paper headers
+%\markboth{Journal of \LaTeX\ Class Files,~Vol.~6, No.~1, January~2007}%
+%{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+%*****************************
+
+% make the title area
+\maketitle
+
+\begin{abstract}
+%\label{abstract}
+The nodes in wireless ad-hoc networks frequently need to broadcast messages for route discovery and other services. The naive flooding requires every node to forward a message exactly once and causes serious performance bottleneck due to redundant traffic, contention, and collision.One convenient solution to overcome this problem is to construct a connected dominating set (CDS) as virtual backbone. Several centralized and distributed algorithms have been designed to compute CDS in order to reduce the number of rebroadcasts. However, none of the approaches aim at minimizing contentions. Contention is a phenomenon that occurs when a group of nodes want to transmit over a shared channel. During contention only one node gets access to the channel and the others defer their transmission for a later time. In this paper, a new heuristic dubbed as \emph{Contention Aware Connected Dominating Set (CACDS)} has been proposed to construct a CDS that intelligently selects the nodes to reduce contention. A centralized algorithm has been deduced first to construct CDS using the global topology information.
+Since it is difficult to gather the entire topology information, a distributed counterpart has also been presented where a node selects a subset of nodes from its immediate neighbors as forwarding nodes based on 2-hop neighborhood information and reduces contention. Experimental results show that proposed heuristics significantly reduce contention and outperform other state-of-the-art algorithms in minimizing contention with a little increase in number of forwarding nodes. 
+\end{abstract}
+
+\begin{IEEEkeywords}
+
+ Contention, Wireless Ad-hoc Network, Connected Dominating Set.
+
+\end{IEEEkeywords}
+\IEEEpeerreviewmaketitle
+
+
+\input{introduction}
+\input{basic.tex}
+\input{literature} 
+\input{preliminaries.tex}
+\input{methodology.tex} 
+\input{Experiments.tex}
+\input{conclusion}
+
+\bibliography{bib}
+\bibliographystyle{IEEEtran}
+
+
+\end{document}
+
+

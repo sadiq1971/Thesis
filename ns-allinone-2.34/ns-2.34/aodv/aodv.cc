@@ -34,6 +34,7 @@ The AODV code developed by the CMU/MONARCH group was optimized and tuned by Sami
 #include <aodv/aodv_packet.h>
 #include <random.h>
 #include <cmu-trace.h>
+#include <aodv/dp.h>
 #include<fstream>
 #include<bits/stdc++.h>
 //#include <energy-model.h>
@@ -41,7 +42,10 @@ The AODV code developed by the CMU/MONARCH group was optimized and tuned by Sami
 
 #define max(a,b)        ( (a) > (b) ? (a) : (b) )
 #define CURRENT_TIME    Scheduler::instance().clock()
-
+#define MCDS 0
+#define CACDS 1
+#define DP 2
+#define DCADS 3
 //#define DEBUG
 //#define ERROR
 
@@ -50,10 +54,14 @@ static int extra_route_reply = 0;
 static int limit_route_request = 0;
 static int route_request = 0;
 #endif
-const int MAX_PACK = 5000;
+const int MAX_PACK = 1000;
 const int TOTAL_NODE =100;
-static int track[TOTAL_NODE][MAX_PACK] = {};
-int forwardingList[TOTAL_NODE][TOTAL_NODE];
+static bool track[TOTAL_NODE][MAX_PACK] = {};
+bool forwardingList[TOTAL_NODE][TOTAL_NODE];
+
+////for algo...
+node node_u, node_v;
+
 using namespace std;
  
 /*
@@ -584,11 +592,16 @@ int uid = ch-> uid();
 
 
 
+
  if(ch->ptype() == PT_AODV) {
    ih->ttl_ -= 1;
    recvAODV(p);
    return;
  }
+
+  //handle dp
+  
+    
 
  
   //static int valid_source[TOTAL_NODE] = {-1, -1,  0, 2, -1, -1};
@@ -632,45 +645,88 @@ int uid = ch-> uid();
 
 
 if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
+
+  ch->p_node_ = -1;
   //printf("initializing new packet\n");
   // Initialize the forwarding List
   // Read from the file of forwarding list..
   ifstream outputFile, configFile;
-
-  // configFile.open("/home/sadiq/Thesis/run/config.txt");
-  // string tn, mp;
-  // configFile >> tn;
-  // configFile >> TOTAL_NODE;
-  // configFile >> mp;
-  // configFile >> MAX_PACK;
-
   string path = "/home/sadiq/Thesis/run/current_output";
   configFile.open(path);
   string algo;
   char ofpath[200];
   configFile >> algo;
   configFile >> ofpath;
-  
-  if (algo == "DP" || algo == "DCADS") {
-    stringstream cwn_s;
-    cwn_s << index;
-    strcat(ofpath,cwn_s.str().c_str());
+  configFile.close();
+
+  if(algo == "MCDS"){
+    ch->algo_ = MCDS;
   }
+  else if(algo == "CACDS"){
+    ch->algo_ = CACDS;
+    
+
+  }
+  else if(algo == "DP"){
+    // cout<<"next pkt";
+    fp = fopen(ofpath,"r");
+    ch->algo_ = DP;
+
+    node_u.inode();
+    node_v.inode();
+    initialization();
+
+    for(int i = 0; i < TOTAL_NODE; i++){
+        for(int j = 0; j < TOTAL_NODE; j++){
+            ZeroOne[i][j] = 0;
+            forwardingList[i][j] = 0;
+        }
+    }
+    node_v.id = index;
+    //q.push(node_v);
+    //node_v.k_forward_korte_bolse.push(null_node.id);
+    
+  }
+  else if(algo == "DCADS"){
+    ch->algo_ = DCADS;
+    fp = fopen(ofpath,"r");
+
+    node_u.inode();
+    node_v.inode();
+    initialization();
+
+    for(int i = 0; i < TOTAL_NODE; i++){
+        for(int j = 0; j < TOTAL_NODE; j++){
+            ZeroOne[i][j] = 0;
+            forwardingList[i][j] = 0;
+        }
+    }
+    node_v.id = index;
+    //q.push(node_v);
+    //node_v.k_forward_korte_bolse.push(null_node.id);
+    
+  }
+  
+  // if (algo == "DP" || algo == "DCADS") {
+  //   stringstream cwn_s;
+  //   cwn_s << index;
+  //   strcat(ofpath,cwn_s.str().c_str());
+  // }
   // cout<<ofpath<<endl;
 
-  outputFile.open(ofpath);
-  while (!outputFile.eof()) {
-    for(int i = 0; i < TOTAL_NODE; i++) { 
-      for(int j = 0; j < TOTAL_NODE; j++) {
-        bool value;
-        outputFile >> value;
-        // printf("v: %d i: %d j: %d \n", value,i,j);
-        forwardingList[i][j] = value;
-      }
-    }
-    break;
-  }
-  outputFile.close();
+  // outputFile.open(ofpath);
+  // while (!outputFile.eof()) {
+  //   for(int i = 0; i < TOTAL_NODE; i++) { 
+  //     for(int j = 0; j < TOTAL_NODE; j++) {
+  //       bool value;
+  //       outputFile >> value;
+  //       // printf("v: %d i: %d j: %d \n", value,i,j);
+  //       forwardingList[i][j] = value;
+  //     }
+  //   }
+  //   break;
+  // }
+  // outputFile.close();
   
   //  printf("%s\n", "initializing");
   // for(int i = 0; i < TOTAL_NODE; i++) { 
@@ -721,14 +777,13 @@ else {
 }
 
 
-
 if(track[index][uid] == 1 ){
   //printf("droping because already has this...\n");
   drop(p, DROP_NOT_VALID_NODE);
-  // printf("%s\n", "DROP_RTR_ROUTE_LOOP");
+  // printf("%s\n", "not valid pkt");
   return;
 }else{
-  track[index][uid]++;
+  track[index][uid]=1;
 }
 
 if (forwardingList[ch->p_node()][index] == 0){
@@ -739,17 +794,70 @@ if (forwardingList[ch->p_node()][index] == 0){
     return;
   }
 }
+
+
+
+if(ch->algo() == DP){
+  bool flag1=0;
+  node_v=ob[index];
+  if(node_v.color==2){
+      flag1=1;
+  }
+  if(flag1==0){
+    node_v.color=2;
+    ob[node_v.id].color=node_v.color;
+    node_u.id = ch->p_node();
+
+    for(int i=0;i<num_nodes;i++){
+      if(ob[i].id==node_u.id){
+        node_u=ob[i];
+        break;
+      }
+    }
+    exact_two_hops_away(&node_v);
+    selecting_B_Set(&node_v, &node_u);
+    selecting_U_Set(&node_v, node_u);
+    selecting_forward_list_DP(&node_v);
+
+    for(int i=0;i<num_nodes;i++){
+      // cout << ZeroOne[index][i]<<" ";
+      forwardingList[index][i] = ZeroOne[index][i];
+    }
+    // cout<<endl;
+  }
+}
+else if(ch->algo() == DCADS){
+  bool flag1=0;
+  node_v=ob[index];
+  if(node_v.color==2){
+      flag1=1;
+  }
+  if(flag1==0){
+    node_v.color=2;
+    ob[node_v.id].color=node_v.color;
+    node_u.id = ch->p_node();
+
+    for(int i=0;i<num_nodes;i++){
+      if(ob[i].id==node_u.id){
+        node_u=ob[i];
+        break;
+      }
+    }
+    exact_two_hops_away(&node_v);
+    selecting_B_Set(&node_v, &node_u);
+    selecting_U_Set(&node_v, node_u);
+    selecting_forward_list_DCADS(&node_v);
+
+    for(int i=0;i<num_nodes;i++){
+      // cout << ZeroOne[index][i]<<" ";
+      forwardingList[index][i] = ZeroOne[index][i];
+    }
+    // cout<<endl;
+  }
+}
+
+
   
-
-
-
-
-
-
-
-
-
-
 
 
 

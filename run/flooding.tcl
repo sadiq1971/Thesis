@@ -54,7 +54,8 @@ $val(netif) set freq_ 2.4e+09
 #100 mW from Cisco 350
 
 # $val(netif) set Pt_ 0.0003074  ;# for csr = tmr = 250
-$val(netif) set Pt_ 0.0003074
+# $val(netif) set Pt_ 0.00000785  ;# for csr = 100
+$val(netif) set Pt_ 0.00000785
 
 set rxthresh 3.9810717055e-13
 set cpthresh -2.92
@@ -195,14 +196,14 @@ source $val(cp)
 # $ns at 0.6 "$a(2) send_message 200 3 {another one} $MESSAGE_PORT"
 
 set b 1
-for {set i 0} {$i < 100 } { incr i} {
+for {set i 0} {$i < 100} { incr i} {
     set num [expr {$i % $num_nodes}]
-    $ns at [expr $i / $b] "$a($num) send_message 200 3 {first message}  $MESSAGE_PORT"
+    $ns at [expr $i / $b] "$a($num) send_message 20 3 {first message}  $MESSAGE_PORT"
     # $ns at $i "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
 }
 
 
-$ns at 100 "finish"
+$ns at 120 "finish"
 
 proc finish {} {
         global ns f nf val

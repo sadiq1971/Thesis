@@ -49,7 +49,7 @@ BINDEST = /usr/local/bin
 CC = g++
 MKDEP	= ../../../conf/mkdep
 
-INCLUDE = -I. -I/home/sadiq/Thesis/ns-allinone-2.34/tclcl-1.19 -I/home/sadiq/Thesis/ns-allinone-2.34/otcl-1.13 -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/usr/include/pcap
+INCLUDE = -I. -I/home/sadiq/Thesis/ns-allinone-2.34/tclcl-1.19 -I/home/sadiq/Thesis/ns-allinone-2.34/otcl -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/usr/include/pcap
 CFLAGS =  -Wall -Wno-write-strings -DCPP_NAMESPACE=std
 LDFLAGS = 
 LIBS = -L/home/sadiq/Thesis/ns-allinone-2.34/lib -ltcl8.4  -lnsl -ldl -lm 

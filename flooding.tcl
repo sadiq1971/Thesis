@@ -48,7 +48,7 @@ $ns trace-all $f
 set nf [open wireless-flooding-$val(rp).nam w]
 $ns namtrace-all-wireless $nf $val(x) $val(y)
 
-#$ns use-newtrace
+$ns use-newtrace
 
 # set up topography object
 set topo       [new Topography]

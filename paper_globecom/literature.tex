@@ -1,0 +1,17 @@
+\section{Related Works}
+\label{literature}
+
+Researchers have proposed several approaches to reduce the \textit{broadcast storm problem}. A conventional solution to mitigate this problem is to construct a virtual backbone as the basis of routing and broadcasting. The idea to create a virtual backbone using connected dominating set (CDS) is first proposed by Ephermides in \cite{ephremides1987design}. Since then, various methods on the CDS construction have been found in the literature which can be classified as centralized algorithms %\cite{guha1998approximation} 
+and distributed algorithms %\cite{lim2001flooding, peng2000reduction}
+based on the network information they used.
+
+Multicasting to all nodes in an ad-hoc network is equivalent to broadcast. The problem of constructing optimal broadcast tree that minimizes the number of packet forwarding is very much similar to MCDS problem \cite{lichtenstein1982planar}. MCDS problem cannot be solved in polynomial time, so the optimal broadcast tree construction based on MCDS is proved to be an NP-complete problem. So, researchers have proposed several approximation algorithms and heuristics to find the optimal broadcast tree using the concept of MCDS. 
+ 
+Guha and Khullar first propose two greedy heuristic algorithms in \cite{guha1998approximation}, to construct CDS based on Minimum Connected Dominating Set (MCDS) and Weakly connected dominating set (WCDS). %By using a potential function, Ruan et al. proposed a one-step greedy approximation algorithm \cite{ruan2004greedy} to construct CDS.
+In \cite{cheng2004approximation}, authors propose a greedy algorithm for MCDS in unit-disk graphs based on MIS (Maximal Independent Set). Min et al. propose to use a Steiner tree with minimum number of Steiner nodes (ST-MSN) in \cite{min2006improving}.
+
+Due to the lack of global topology information, the distributed approach is most widely used for CDS construction in wireless multi-hop network. Das and Bharghavan in \cite{das1997routing} provide the distributed implementation of the two centralized algorithms given by Guha and Khuller in \cite{guha1998approximation}. Both implementations suffer from high message complexities. The one given by Wu and Li in \cite {wu1999calculating} has no performance analysis. It needs at least two-hop neighborhood information. Lim and Kim ~\cite{lim2001flooding} propose a reactive algorithm called Self Pruning (SP) that uses direct neighborhood information to decide whether to forward a packet or not and another proactive algorithm named Dominant Pruning (DP) where extended neighborhood information is used. In DP, a node construct its own forwarding list from the subset of its 1-hop neighbors in order to cover all its 2-hop neighbors. They also propose two extensions of DP known as Partial Dominant Pruning (PDP) and Total Dominant Pruning (TDP).
+
+Though there are several methods to construct CDS to reduce redundancy but CDS has never been computed to reduce contention in any of the prior works. Therefore, we are proposing to fill up this notable gap by introducing contention aware minimum connected dominating set in this paper.
+
+

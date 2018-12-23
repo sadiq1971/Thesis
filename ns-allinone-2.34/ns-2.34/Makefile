@@ -64,7 +64,7 @@ DEFINE	= -DTCP_DELAY_BIND_ALL -DNO_TK -DTCLCL_CLASSINSTVAR  -DNDEBUG -DLINUX_TCP
 INCLUDES = \
 	-I.  \
 	-I. \
-	-I/home/sadiq/Thesis/ns-allinone-2.34/tclcl-1.19 -I/home/sadiq/Thesis/ns-allinone-2.34/otcl-1.13 -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/usr/include/pcap \
+	-I/home/sadiq/Thesis/ns-allinone-2.34/tclcl-1.19 -I/home/sadiq/Thesis/ns-allinone-2.34/otcl -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/home/sadiq/Thesis/ns-allinone-2.34/include -I/usr/include/pcap \
 	-I./tcp -I./sctp -I./common -I./link -I./queue \
 	-I./adc -I./apps -I./mac -I./mobile -I./trace \
 	-I./routing -I./tools -I./classifier -I./mcast \
@@ -76,7 +76,7 @@ INCLUDES = \
 
 
 LIB	= \
-	-L/home/sadiq/Thesis/ns-allinone-2.34/tclcl-1.19 -ltclcl -L/home/sadiq/Thesis/ns-allinone-2.34/otcl-1.13 -lotcl -L/home/sadiq/Thesis/ns-allinone-2.34/lib -ltk8.4 -L/home/sadiq/Thesis/ns-allinone-2.34/lib -ltcl8.4 \
+	-L/home/sadiq/Thesis/ns-allinone-2.34/tclcl-1.19 -ltclcl -L/home/sadiq/Thesis/ns-allinone-2.34/otcl -lotcl -L/home/sadiq/Thesis/ns-allinone-2.34/lib -ltk8.4 -L/home/sadiq/Thesis/ns-allinone-2.34/lib -ltcl8.4 \
 	-lXext -lX11 \
 	 -lnsl -ldl \
 	-lm -lm 

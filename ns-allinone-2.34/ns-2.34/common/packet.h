@@ -567,6 +567,7 @@ struct hdr_cmn {
 	//for handling flooding we created a vector that will track visited nodes;
 
 	int p_node_;
+	int algo_;
 	enum dir_t { DOWN= -1, NONE= 0, UP= 1 };
 	packet_t ptype_;	// packet type (see above)
 	int	size_;		// simulated packet size
@@ -636,6 +637,7 @@ struct hdr_cmn {
 	inline int& num_forwards() { return (num_forwards_); }
 	inline int& opt_num_forwards() { return (opt_num_forwards_); }
 	inline int& p_node(){return (p_node_); }
+	inline int& algo(){return (algo_); }
         //monarch_end
 
 	ModulationScheme mod_scheme_;

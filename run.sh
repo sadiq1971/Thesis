@@ -20,7 +20,7 @@ read max_xy
 
 echo -n "Number of scenario: "
 read sn
-trange=250
+trange=100
 
 
 
@@ -88,40 +88,47 @@ rm -f $result/*
 
 
 
-echo "Running ns2 for MCDS.."
-# MCDS
-for(( i=1;i<=$sn;i++))
-do
-    cd $run
-    rm -f $scenario
-    rm -f $output
-    rm -f $current_output
-    cp $scendir/$scenario_file_name$i.out $scenario
-    # cp $MCDS/$scenario_file_name$i.out $output
-    echo $MCDS | tee >> $current_output
-    echo $MCDS/$scenario_file_name$i".out" | tee >> $current_output
-    ns flooding.tcl
-    cd $analyser
-    ./Trace_Analysis >> $result/mcds
+# echo "Running ns2 for MCDS.."
+# # MCDS
+# for(( i=1;i<=$sn;i++))
+# do
+#     cd $run
+#     rm -f $scenario
+#     rm -f $output
+#     rm -f $current_output
+#     cp $scendir/$scenario_file_name$i.out $scenario
+#     # cp $MCDS/$scenario_file_name$i.out $output
+#     echo $MCDS | tee >> $current_output
+#     echo $MCDS/$scenario_file_name$i".out" | tee >> $current_output
+#     rm -f MCDS.tr
+    
+#     ns flooding.tcl
+#     cp $trace MCDS.tr
+#     cd $analyser
+#     ./Trace_Analysis >> $result/mcds
 
-done
-echo "Running ns2 for CACDS.."
-# CACDS
-for(( i=1;i<=$sn;i++))
-do
-    cd $run
-    rm -f $scenario
-    rm -f $output
-    rm -f current_output
-    cp $scendir/$scenario_file_name$i.out $scenario
-    # cp $CACDS/$scenario_file_name$i.out $output
-    echo $CACDS | tee >> $current_output
-    echo $CACDS/$scenario_file_name$i".out" | tee >> $current_output
-    ns flooding.tcl
-    cd $analyser
-    ./Trace_Analysis >> $result/cacds
+# done
+# echo "Running ns2 for CACDS.."
+# # CACDS
+# for(( i=1;i<=$sn;i++))
+# do
+#     cd $run
+#     rm -f $scenario
+#     rm -f $output
+#     rm -f current_output
+#     cp $scendir/$scenario_file_name$i.out $scenario
+#     # cp $CACDS/$scenario_file_name$i.out $output
+#     echo $CACDS | tee >> $current_output
+#     echo $CACDS/$scenario_file_name$i".out" | tee >> $current_output
+#     rm -f CACDS.tr
+    
+#     ns flooding.tcl
+#     cp $trace CACDS.tr
+#     cd $analyser
+#     ./Trace_Analysis >> $result/cacds
 
-done
+# done
+
 echo "Running ns2 for DCADS.."
 # DCADS
 for(( i=1;i<=$sn;i++))
@@ -133,8 +140,11 @@ do
     cp $scendir/$scenario_file_name$i.out $scenario
     # cp $DCADS/$scenario_file_name$i.out0 $output
     echo "DCADS" | tee >> $current_output
-    echo $DCADS/$scenario_file_name$i".out" | tee >> $current_output
+    echo $inforalgo/$scenario_file_name$i".out" | tee >> $current_output
+    rm -f DCACDS.tr
+   
     ns flooding.tcl
+    cp $trace DCADS.tr
     cd $analyser
     ./Trace_Analysis >> $result/dcads
 
@@ -151,11 +161,13 @@ do
     cp $scendir/$scenario_file_name$i.out $scenario
     # cp $DP/$scenario_file_name$i.out0 $output
     echo "DP" | tee >> $current_output
-    echo $DP/$scenario_file_name$i".out" | tee >> $current_output
+    echo $inforalgo/$scenario_file_name$i".out" | tee >> $current_output
+    rm -f DP.tr
+    
     ns flooding.tcl
+    cp $trace DP.tr
     cd $analyser
     ./Trace_Analysis >> $result/dp
-
 done
 
 
@@ -170,4 +182,3 @@ rm -f $fn
 cd $ra
 g++ ./analysis.cpp
 ./a.out $mcds $cacds $dp $dcads $fn $sn
-
