@@ -100,7 +100,7 @@ void		show_counters(void);
 /* ======================================================================
    Global Variables
    ====================================================================== */
-const double	RANGE = 100.0;	// transmitter range in meters
+const double	RANGE = 200.0;	// transmitter range in meters
 double		TIME = 0.0;			// my clock;
 double		MAXTIME = 0.0;		// duration of simulation
 
@@ -143,6 +143,7 @@ double
 uniform()
 {
         count++;
+        //printf("%lf",rng->uniform_double());
         return rng->uniform_double() ;
 }
 
@@ -273,6 +274,7 @@ int
 main(int argc, char **argv)
 {
 	char ch;
+	//printf("input taken");
 
 	while ((ch = getopt(argc, argv, "v:n:s:m:M:t:P:p:x:y:i:o:")) != EOF) {       
 
@@ -412,6 +414,7 @@ main(int argc, char **argv)
 			NODES , SPEEDTYPE, MINSPEED, MAXSPEED, SS_AVGSPEED, PAUSETYPE, PAUSE, MAXX, MAXY);
 	} 	
 
+	//printf("Comes here");
 
 	init();
 

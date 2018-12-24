@@ -46,6 +46,7 @@ The AODV code developed by the CMU/MONARCH group was optimized and tuned by Sami
 #define CACDS 1
 #define DP 2
 #define DCADS 3
+#define MODI 4
 //#define DEBUG
 //#define ERROR
 
@@ -565,6 +566,8 @@ Packet *p;
 
 }
 
+
+
 /*
   Packet Reception Routines
 */
@@ -678,7 +681,7 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
 
     for(int i = 0; i < TOTAL_NODE; i++){
         for(int j = 0; j < TOTAL_NODE; j++){
-            ZeroOne[i][j] = 0;
+            ZeroOnedp[i][j] = 0;
             forwardingList[i][j] = 0;
         }
     }
@@ -697,7 +700,7 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
 
     for(int i = 0; i < TOTAL_NODE; i++){
         for(int j = 0; j < TOTAL_NODE; j++){
-            ZeroOne[i][j] = 0;
+            ZeroOnedc[i][j] = 0;
             forwardingList[i][j] = 0;
         }
     }
@@ -706,6 +709,27 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
     //node_v.k_forward_korte_bolse.push(null_node.id);
     
   }
+  else if(algo == "MODI"){
+    ch->algo_ = MODI;
+    fp = fopen(ofpath,"r");
+
+    node_u.inode();
+    node_v.inode();
+    initialization();
+
+    for(int i = 0; i < TOTAL_NODE; i++){
+        for(int j = 0; j < TOTAL_NODE; j++){
+            ZeroOnedp[i][j] = 0;
+            ZeroOnedc[i][j] = 0;
+            forwardingList[i][j] = 0;
+        }
+    }
+    node_v.id = index;
+    //q.push(node_v);
+    //node_v.k_forward_korte_bolse.push(null_node.id);
+    
+  }
+  
   
   // if (algo == "DP" || algo == "DCADS") {
   //   stringstream cwn_s;
@@ -819,9 +843,11 @@ if(ch->algo() == DP){
     selecting_U_Set(&node_v, node_u);
     selecting_forward_list_DP(&node_v);
 
+    int sdp = sizeof_flist;
+    // cout<<"SDP: "<<sdp<<endl;
     for(int i=0;i<num_nodes;i++){
       // cout << ZeroOne[index][i]<<" ";
-      forwardingList[index][i] = ZeroOne[index][i];
+      forwardingList[index][i] = ZeroOnedp[index][i];
     }
     // cout<<endl;
   }
@@ -847,20 +873,78 @@ else if(ch->algo() == DCADS){
     selecting_B_Set(&node_v, &node_u);
     selecting_U_Set(&node_v, node_u);
     selecting_forward_list_DCADS(&node_v);
-
+    int sdacds = sizeof_flist;
+    // cout<<"scacds: "<<sdacds<<endl;
     for(int i=0;i<num_nodes;i++){
       // cout << ZeroOne[index][i]<<" ";
-      forwardingList[index][i] = ZeroOne[index][i];
+      forwardingList[index][i] = ZeroOnedc[index][i];
     }
     // cout<<endl;
   }
 }
 
+else if(ch->algo() == MODI){
+  bool flag1=0;
+  node_v=ob[index];
+  if(node_v.color==2){
+      flag1=1;
+  }
+  if(flag1==0){
+    node_v.color=2;
+    ob[node_v.id].color=node_v.color;
+    node_u.id = ch->p_node();
 
+    for(int i=0;i<num_nodes;i++){
+      if(ob[i].id==node_u.id){
+        node_u=ob[i];
+        break;
+      }
+    }
+    exact_two_hops_away(&node_v);
+    selecting_B_Set(&node_v, &node_u);
+    selecting_U_Set(&node_v, node_u);
+    selecting_forward_list_DCADS(&node_v);
+    int sdacds = sizeof_flist;
+    // cout<<"scacds: "<<sdacds<<endl;
+    
+    
+    node_v.color=2;
+    ob[node_v.id].color=node_v.color;
+    node_u.id = ch->p_node();
+
+    for(int i=0;i<num_nodes;i++){
+      if(ob[i].id==node_u.id){
+        node_u=ob[i];
+        break;
+      }
+    }
+    exact_two_hops_away(&node_v);
+    selecting_B_Set(&node_v, &node_u);
+    selecting_U_Set(&node_v, node_u);
+    selecting_forward_list_DP(&node_v);
+    int sdp = sizeof_flist;
+    // cout<<"SDP: "<<sdp<<endl;
+    
+    if( sdp >= sdacds ){
+      int sdacds = sizeof_flist;
+      // cout<<"accepted: "<<sdacds<<endl;
+      for(int i=0;i<num_nodes;i++){
+      // cout << ZeroOne[index][i]<<" ";
+        forwardingList[index][i] = ZeroOnedc[index][i];
+      }
+    }
+    else{
+        for(int i=0;i<num_nodes;i++){
+      // cout << ZeroOne[index][i]<<" ";
+        forwardingList[index][i] = ZeroOnedp[index][i];
+      }
+    }
+
+    
+    // cout<<endl;
+  }
+}
   
-
-
-
 
 // Added by Parag Dadhania && John Novatnack to handle broadcasting
  if ( (u_int32_t)ih->daddr() != IP_BROADCAST){

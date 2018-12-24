@@ -52,7 +52,8 @@ void		show_counters(void);
 /* ======================================================================
    Global Variables
    ====================================================================== */
-double	        RANGE = 250.0;		// transmitter range in meters
+double	    RANGE = 200;		// transmitter range in meters
+
 double		TIME = 0.0;		// my clock;
 double		MAXTIME = 0.0;		// duration of simulation
 
@@ -165,6 +166,8 @@ OpenAndReadHeader(char *in_filename, char *out_filename)
     /* check to see if we need data from the line */
     sscanf(buf, "# nodes: %d, max time: %lf", &NODES, &MAXTIME);
     sscanf(buf, "# nominal range: %lf", &RANGE);
+    RANGE = 700;
+    printf("Comes in caldest");
     
     fprintf(out_file, "%s", buf);
   }

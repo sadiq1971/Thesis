@@ -1,5 +1,5 @@
 algo     Delay     Reachability     D/R        A.Forwarding      F/R       A.Colission
 MCDS   0    0      -nan       0      -nan       0
 CACDS  0    0      -nan       0      -nan       0
-DP     3.9252e-06    0.02441      0.000160803       1.004      41.1307       0
-DCADS  8.46335e-07    0.02439      3.47001e-05       1.001      41.0414       0
+DP     0    0      -nan       0      -nan       0
+DCADS  0.00490655    0.99999      0.0049066       18.042      18.0422       0

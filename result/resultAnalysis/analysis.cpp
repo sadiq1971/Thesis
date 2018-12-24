@@ -5,23 +5,23 @@ using namespace std;
 
 int main(int argc, char *argv[] )
 {
-    ifstream in[4];
-    string algo[4] = {"MCDS ", "CACDS", "DP   ", "DCADS"}; 
+    ifstream in[5];
+    string algo[5] = {"MCDS ", "CACDS", "DP   ", "DCADS", "MODI"}; 
     
-    for(int i = 0; i< 4; i++){
+    for(int i = 0; i< 5; i++){
         in[i].open(argv[i+1]);
         //cout<<argv[i+1]<<endl;
     }
 
-    int t= atoi(argv[6]);
+    int t= atoi(argv[7]);
 
     ofstream output;
-    output.open(argv[5]);
+    output.open(argv[6]);
     output<<"algo"<<"  "<< "   Delay    "<<" Reachability"<<"     D/R      "
     << "  A.Forwarding "<< "     F/R    "<<"   A.Colission\n";
 
 
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < 5; i++){
         int c = 0;
         float delay = 0;
         float reach = 0;
@@ -72,7 +72,7 @@ int main(int argc, char *argv[] )
 
     }
 
-    for(int i = 0; i< 4; i++){
+    for(int i = 0; i< 5; i++){
         in[i].close();
     }
     output.close();

@@ -55,12 +55,25 @@ $val(netif) set freq_ 2.4e+09
 
 # $val(netif) set Pt_ 0.0003074  ;# for csr = tmr = 250
 # $val(netif) set Pt_ 0.00000785  ;# for csr = 100
-$val(netif) set Pt_ 0.00000785
+# $val(netif) set Pt_ 0.001  ;# for csr = tmr = 225
+$val(netif) set Pt_ 0.001  ;# for csr = tmr = 200
+# $val(netif) set Pt_ 0.002  ;# for csr = tmr = 175
+# $val(netif) set Pt_ 0.002  ;# for csr = tmr = 150
+# $val(netif) set Pt_ 0.002  ;# for csr = tmr = 125
+# $val(netif) set Pt_ 0.002  ;# for csr = tmr = 100
+
 
 set rxthresh 3.9810717055e-13
 set cpthresh -2.92
 # set csthresh [expr {325*$rxthresh}]
-set csthresh [expr {1*$rxthresh}]
+# set csthresh [expr {1*$rxthresh}] ;#250
+# set csthresh [expr {4.9*$rxthresh}] ;#225
+set csthresh [expr {6.2*$rxthresh}] ;#200
+# set csthresh [expr {16.2*$rxthresh}] ;#175
+# set csthresh [expr {22*$rxthresh}] ;#150
+# set csthresh [expr {31*$rxthresh}] ;#125
+# set csthresh [expr {49*$rxthresh}] ;#100
+
 
 
 $val(netif) set RXThresh_ $rxthresh  ;# receiver sensitivity
@@ -198,7 +211,7 @@ source $val(cp)
 set b 1
 for {set i 0} {$i < 100} { incr i} {
     set num [expr {$i % $num_nodes}]
-    $ns at [expr $i / $b] "$a($num) send_message 20 3 {first message}  $MESSAGE_PORT"
+    $ns at [expr $i / $b] "$a($num) send_message 200 3 {first message}  $MESSAGE_PORT"
     # $ns at $i "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
 }
 

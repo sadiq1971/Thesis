@@ -16,9 +16,11 @@ int num_nodes, arr[500][500];
 int sizec_intersection, sizec_minus;
 int sizec_union;
 int contention_count=0,sum=0;
-bool ZeroOne[500][500]={};
-FILE *fp;
+bool ZeroOnedp[500][500]={};
+bool ZeroOnedc[500][500]={};
 
+FILE *fp;
+int sizeof_flist;
 
 int *Union(int a[],int b[],int m,int n)
 {
@@ -122,7 +124,7 @@ public:
     int second_hop_neighbors[1000], size_of_second_hop;
     int U_Set[1000], size_of_U_set;
     int B_Set[1000], size_of_B_set;
-    int Forward_list[10000], size_of_Forward_list;
+    int Forward_list[1000], size_of_Forward_list;
 
     //public:
     int color;
@@ -274,6 +276,12 @@ void selecting_U_Set(node *a, node b)
 
 void selecting_forward_list_DP(node *a)
 {
+    sizeof_flist = 0;
+    a->size_of_Forward_list=0;
+    for(int i=0;i<1000;i++){
+        a->Forward_list[i] = 0;
+    }
+    
     int *Z1_Set, one[1000],one_count=0, *U2_Set;
     int Z_Set[1000], size_of_Z_set=0, U1_Set[100000], size_of_U1_set=0,B1_Set[100000], size_of_B1_set=0;
     int maximum, pos_of_max;
@@ -419,11 +427,15 @@ void selecting_forward_list_DP(node *a)
     }
     // cout<<"Forward_list of : "<<a->id<<": ";
 
-    for(int i=0;i<a->size_of_Forward_list;i++)
+    for(int i=0; i< num_nodes; i++){
+         ZeroOnedp[a->id][i]=0;
+    }
+    for(int i=0;i < a->size_of_Forward_list;i++)
     {
         // cout<<a->Forward_list[i]<<" ";
-        int index=a->Forward_list[i];
-        ZeroOne[a->id][index]=1;
+        sizeof_flist = a->size_of_Forward_list;
+        int index = a->Forward_list[i];
+        ZeroOnedp[a->id][index]=1;
         //fprintf(fp2,"%d ",a->Forward_list[i]);
 
     }
@@ -436,6 +448,11 @@ void selecting_forward_list_DP(node *a)
 
 void selecting_forward_list_DCADS(node *a)
 {
+    sizeof_flist = 0;
+    a->size_of_Forward_list=0;
+    for(int i=0;i<1000;i++){
+        a->Forward_list[i] = 0;
+    }
     int *Z1_Set, one[1000],one_count=0, *U2_Set,bla[10000],bla_count=0,*B;
     int Z_Set[100000], size_of_Z_set=0, U1_Set[100000], size_of_U1_set=0,B1_Set[100000], size_of_B1_set=0;
     int maximum=1, pos_of_max,minimum,pos_of_min;
@@ -621,13 +638,13 @@ if(maximum>0)
 
             q.push(x);
             a->Forward_list[a->size_of_Forward_list++]= pos_of_max;
-            for(int i=0;i<num_nodes;i++)
-            {
-                if(x.id==ob[i].id)
-                {
-                    ob[i].k_forward_korte_bolse.push(a->id);
-                }
-            }
+            // for(int i=0;i<num_nodes;i++)
+            // {
+            //     if(x.id==ob[i].id)
+            //     {
+            //         ob[i].k_forward_korte_bolse.push(a->id);
+            //     }
+            // }
 
             Z1_Set=Union(temp1, Z_Set, size_of_temp1_set, size_of_Z_set);
 
@@ -676,11 +693,15 @@ else{
     // cout<<"Forward_list of: "<<a->id<<": ";
     
 
+    for(int i=0; i< num_nodes; i++){
+         ZeroOnedc[a->id][i]=0;
+    }
     for(int i=0;i<a->size_of_Forward_list;i++)
     {
         // cout<<a->Forward_list[i]<<" ";
+        sizeof_flist = a->size_of_Forward_list;
         int index=a->Forward_list[i];
-        ZeroOne[a->id][index]=1;
+        ZeroOnedc[a->id][index]=1;
     }
     // cout<<endl;
 }
