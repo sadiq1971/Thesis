@@ -18,7 +18,7 @@ int main(int argc, char *argv[] )
     ofstream output;
     output.open(argv[6]);
     output<<"algo"<<"  "<< "   Delay    "<<" Reachability"<<"     D/R      "
-    << "  A.Forwarding "<< "     F/R    "<<"   A.Colission\n";
+    << "  A.Forwarding "<< "     F/R    "<<"   A.receivetime\n";
 
 
     for(int i = 0; i < 5; i++){

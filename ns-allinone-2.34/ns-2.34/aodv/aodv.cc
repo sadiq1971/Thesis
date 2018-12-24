@@ -55,8 +55,8 @@ static int extra_route_reply = 0;
 static int limit_route_request = 0;
 static int route_request = 0;
 #endif
-const int MAX_PACK = 1000;
-const int TOTAL_NODE =100;
+const int MAX_PACK = 500;
+const int TOTAL_NODE = 200;
 static bool track[TOTAL_NODE][MAX_PACK] = {};
 bool forwardingList[TOTAL_NODE][TOTAL_NODE];
 
@@ -649,7 +649,7 @@ int uid = ch-> uid();
 
 if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
 
-  ch->p_node_ = -1;
+ 
   //printf("initializing new packet\n");
   // Initialize the forwarding List
   // Read from the file of forwarding list..
@@ -663,14 +663,42 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
   configFile.close();
 
   if(algo == "MCDS"){
+    // cout<<ofpath<<endl;
+    outputFile.open(ofpath);
     ch->algo_ = MCDS;
+    while (!outputFile.eof()) {
+      for(int i = 0; i < TOTAL_NODE; i++) { 
+        for(int j = 0; j < TOTAL_NODE; j++) {
+          bool value;
+          outputFile >> value;
+          // printf("v: %d i: %d j: %d \n", value,i,j);
+          forwardingList[i][j] = value;
+        }
+      }
+      break;
+    }
+    outputFile.close();
+
   }
   else if(algo == "CACDS"){
     ch->algo_ = CACDS;
-    
+    outputFile.open(ofpath);
+    while (!outputFile.eof()) {
+      for(int i = 0; i < TOTAL_NODE; i++) { 
+        for(int j = 0; j < TOTAL_NODE; j++) {
+          bool value;
+          outputFile >> value;
+          // printf("v: %d i: %d j: %d \n", value,i,j);
+          forwardingList[i][j] = value;
+        }
+      }
+      break;
+    }
+    outputFile.close();
 
   }
   else if(algo == "DP"){
+    ch->p_node_ = -1;
     // cout<<"next pkt";
     fp = fopen(ofpath,"r");
     ch->algo_ = DP;
@@ -691,6 +719,7 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
     
   }
   else if(algo == "DCADS"){
+    ch->p_node_ = -1;
     ch->algo_ = DCADS;
     fp = fopen(ofpath,"r");
 
@@ -710,6 +739,7 @@ if((ih->saddr() == index) && (ch->num_forwards() == 0)) {
     
   }
   else if(algo == "MODI"){
+    ch->p_node_ = -1;
     ch->algo_ = MODI;
     fp = fopen(ofpath,"r");
 

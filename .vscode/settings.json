@@ -6,7 +6,14 @@
         "vector": "cpp",
         "unordered_map": "cpp",
         "ostream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "functional": "cpp",
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "type_traits": "cpp",
+        "*.tcc": "cpp",
+        "istream": "cpp",
+        "optional": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }

@@ -20,7 +20,7 @@ read max_xy
 
 echo -n "Number of scenario: "
 read sn
-trange=125
+trange=250
 
 
 
@@ -65,8 +65,8 @@ cd $algo
 g++ ./MCDS.cpp
 ./a.out
 
-# g++ ./Centralized\ CACDS.cpp
-# ./a.out
+g++ ./Centralized\ CACDS.cpp
+./a.out
 
 # g++ ./DP.cpp
 # for(( i=0;i<$num_nodes;i++))

@@ -20,7 +20,7 @@ read max_xy
 
 echo -n "Number of scenario: "
 read sn
-trange=125
+trange=250
 
 
 
@@ -98,7 +98,7 @@ do
     rm -f $current_output
     cp $scendir/$scenario_file_name$i.out $scenario
     # cp $MCDS/$scenario_file_name$i.out $output
-    echo $MCDS | tee >> $current_output
+    echo "MCDS" | tee >> $current_output
     echo $MCDS/$scenario_file_name$i".out" | tee >> $current_output
     rm -f MCDS.tr
     
@@ -118,7 +118,7 @@ do
     rm -f current_output
     cp $scendir/$scenario_file_name$i.out $scenario
     # cp $CACDS/$scenario_file_name$i.out $output
-    echo $CACDS | tee >> $current_output
+    echo "CACDS" | tee >> $current_output
     echo $CACDS/$scenario_file_name$i".out" | tee >> $current_output
     rm -f CACDS.tr
     
@@ -128,6 +128,7 @@ do
     ./Trace_Analysis >> $result/cacds
 
 done
+
 
 echo "Running ns2 for DCADS.."
 # DCADS
@@ -171,8 +172,8 @@ do
     ./Trace_Analysis >> $result/dp
 done
 
-echo "Running ns2 for DCADS.."
-# DCADS
+echo "Running ns2 for MODI.."
+# MODI
 for(( i=1;i<=$sn;i++))
 do
     cd $run

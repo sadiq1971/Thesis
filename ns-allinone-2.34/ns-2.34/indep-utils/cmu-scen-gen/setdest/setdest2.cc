@@ -59,7 +59,7 @@ void		show_counters(void);
 /* ======================================================================
    Global Variables
    ====================================================================== */
-const double	RANGE = 200.0;		// transmitter range in meters
+const double	RANGE = 250.0;		// transmitter range in meters
 double		TIME = 0.0;		// my clock;
 double		MAXTIME = 0.0;		// duration of simulation
 

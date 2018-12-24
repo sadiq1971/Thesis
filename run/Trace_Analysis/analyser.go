@@ -8,14 +8,16 @@ import (
 )
 
 func main() {
-	const MAX_NODE = 100
-	const MAX_PACK = 10000
+	const MAX_NODE = 200
+	const MAX_PACK = 100
 
 	var timeTracket [MAX_NODE][MAX_PACK]float64
 	var rTracker [MAX_NODE][MAX_PACK]float64
 	var isForwardNode [MAX_NODE][MAX_PACK]bool
 	var dropedPacket [MAX_PACK]int
 	var forwardedPacket [MAX_PACK]int
+	var recvTime [MAX_PACK]float64
+	var sendTime [MAX_PACK]float64
 	var validPackate = 0
 	averageCollision := 0
 	reachability := 0
@@ -68,6 +70,7 @@ func main() {
 							//fmt.Println("Comes")
 							timeTracket[node][packet], _ = strconv.ParseFloat(line["-t"], 64)
 						}
+						sendTime[packet], _ = strconv.ParseFloat(line["-t"], 64)
 						rTracker[node][packet] = 1
 					}
 					if layer == "MAC" {
@@ -155,7 +158,13 @@ func main() {
 
 					if line["-Nl"] == "RTR" {
 						//fmt.Println("Comes")
-						rTracker[node][packet] = 1
+						if rTracker[node][packet] == -1 {
+							rTracker[node][packet] = 1
+							time, _ := strconv.ParseFloat(line["-t"], 64)
+							if time > recvTime[packet] {
+								recvTime[packet] = time
+							}
+						}
 					}
 
 					break
@@ -229,13 +238,19 @@ func main() {
 
 	// fmt.Println("Average DroppedPacket: ", averageDropped)
 	// fmt.Println("Average Delay (For succ pkt only): ", float64(averageDelay)/float64(successfullForwarding))
+	totalReceiveTime := 0.0
+	for i := 0; i < validPackate; i++ {
+		totalReceiveTime += recvTime[i] - sendTime[i]
+	}
+
 	fmt.Println("Average_Delay: ",
 		float64(totalDelay)/float64(validPackate))
 	fmt.Println("Reachability_in_percentage: ",
 		float64(reachability)/(float64(validPackate)*float64(MAX_NODE)))
 	// fmt.Println("Packet received by all nodes: ", successfullForwarding)
-	fmt.Println("Average_Forwarding:", averageForwarding)
-	fmt.Println("Average_Collision: ",
-		float64(averageCollision)/float64(validPackate))
+	fmt.Println("Average_Forwarding: ", averageForwarding)
+
+	fmt.Println("Average_ReceiveTime: ",
+		float64(totalReceiveTime)/float64(validPackate))
 
 }

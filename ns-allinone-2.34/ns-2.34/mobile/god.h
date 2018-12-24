@@ -61,7 +61,7 @@
 #define SRC_TAB(i,j)     source_table[i*num_nodes+j]
 #define SK_TAB(i,j)      sink_table[i*num_nodes+j]
 #define	UNREACHABLE	 0x00ffffff
-#define RANGE            200.0                 // trasmitter range in meters
+#define RANGE            250.0                 // trasmitter range in meters
 
 
 class NodeStatus {
