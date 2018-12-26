@@ -56,7 +56,7 @@ static int limit_route_request = 0;
 static int route_request = 0;
 #endif
 const int MAX_PACK = 500;
-const int TOTAL_NODE = 200;
+const int TOTAL_NODE = 7;
 static bool track[TOTAL_NODE][MAX_PACK] = {};
 bool forwardingList[TOTAL_NODE][TOTAL_NODE];
 

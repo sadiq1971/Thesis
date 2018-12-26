@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	const MAX_NODE = 200
+	const MAX_NODE = 7
 	const MAX_PACK = 100
 
 	var timeTracket [MAX_NODE][MAX_PACK]float64

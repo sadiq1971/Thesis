@@ -6,7 +6,7 @@ set BROADCAST_ADDR -1
 # variables which control the number of nodes and how they're grouped
 # (see topology creation code below)
 
-set num_nodes 200
+set num_nodes 7
 
 
 set val(chan)           Channel/WirelessChannel    ;#Channel Type
@@ -55,7 +55,7 @@ $val(netif) set freq_ 2.4e+09
 
 $val(netif) set Pt_ 0.0003074  ;# for csr = tmr = 250
 # $val(netif) set Pt_ 0.00000785  ;# for csr = 100
-# $val(netif) set Pt_ 0.001  ;# for csr = tmr = 225
+# $val(netif) set Pt_ 0.00045  ;# for csr = tmr = 225
 # $val(netif) set Pt_ 0.001  ;# for csr = tmr = 200
 # $val(netif) set Pt_ 0.002  ;# for csr = tmr = 175
 # $val(netif) set Pt_ 0.002  ;# for csr = tmr = 150
@@ -66,6 +66,7 @@ $val(netif) set Pt_ 0.0003074  ;# for csr = tmr = 250
 set rxthresh 3.9810717055e-13
 set cpthresh -2.92
 # set csthresh [expr {325*$rxthresh}]
+# set csthresh [expr {1*$rxthresh}] ;#275
 set csthresh [expr {1*$rxthresh}] ;#250
 # set csthresh [expr {4.9*$rxthresh}] ;#225
 # set csthresh [expr {6.2*$rxthresh}] ;#200
@@ -211,7 +212,7 @@ source $val(cp)
 set b 1
 for {set i 0} {$i < 100} { incr i} {
     set num [expr {$i % $num_nodes}]
-    $ns at [expr $i / $b] "$a($num) send_message 200 3 {first message}  $MESSAGE_PORT"
+    $ns at [expr $i / $b] "$a(0) send_message 200 3 {first message}  $MESSAGE_PORT"
     # $ns at $i "$a(2) send_message 200 3 {first message}  $MESSAGE_PORT"
 }
 
